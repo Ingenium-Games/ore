@@ -43,6 +43,7 @@ function c.class.CreateCharacter(character_id)
     self.Accounts = json.decode(data.Accounts)
     self.Appearance = json.decode(data.Appearance)
     self.Inventory = json.decode(data.Inventory)
+    self.Licenses = json.decode(data.Licenses)
     self.Modifiers = json.decode(data.Modifiers)
     self.Coords = json.decode(data.Coords)
 
@@ -109,6 +110,18 @@ function c.class.CreateCharacter(character_id)
         for k, v in pairs(self.Accounts) do
             if v.name == acc then
                 return v.money
+            end
+        end
+    end
+    --
+    self.GetLicenses = function()
+        return self.Licenses
+    end
+    --
+    self.GetLicense = function(license)
+        for k, v in pairs(self.Licenses) do
+            if v.name == license then
+                return v
             end
         end
     end

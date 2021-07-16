@@ -105,7 +105,6 @@ body {
   overflow-y: scroll;
   bottom: 0px !important;
   position: absolute;
-  box-shadow: 10px 0px 9px rgba(0, 0, 0, 0.75);
 }
 
 .Selector {

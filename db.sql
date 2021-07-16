@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `Photo` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'img/icons8-team-100.png',
   `Appearance` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '{"sex":0}',
   `Inventory` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '{}',
+  `Licenses` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '{}',
   `Accounts` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Modifiers` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Traits` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   KEY `Instance` (`Instance`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Character Table';
 
--- Dumping data for table db.characters: ~0 rows (approximately)
+-- Dumping data for table db.characters: ~2 rows (approximately)
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 
@@ -93,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `character_accounts` (
   CONSTRAINT `FK_character_accounts_characters` FOREIGN KEY (`Character_ID`) REFERENCES `characters` (`Character_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db.character_accounts: ~1 rows (approximately)
+-- Dumping data for table db.character_accounts: ~2 rows (approximately)
 /*!40000 ALTER TABLE `character_accounts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `character_accounts` ENABLE KEYS */;
 
@@ -165,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `job_accounts` (
   KEY `Name` (`Name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db.job_accounts: ~0 rows (approximately)
+-- Dumping data for table db.job_accounts: ~17 rows (approximately)
 /*!40000 ALTER TABLE `job_accounts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `job_accounts` ENABLE KEYS */;
 

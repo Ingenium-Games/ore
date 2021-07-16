@@ -71,14 +71,15 @@ AddEventHandler('Server:Character:Request:Create', function(first_name, last_nam
     }
     c.sql.CreateCharacter(data, function()
         c.sql.CreateLoanAccount(char, banknum)
-        Wait(500)
+        
     end)
-        c.data.LoadPlayer(src, char)
-        TriggerClientEvent('Client:Character:FirstSpawn', src)
-        ---
-        ---
-        ---
-        ---
-        TriggerClientEvent('creator:OpenCreator', src)
-        c.inst.SetPlayer(src, c.inst.New())
+    c.data.LoadPlayer(src, char)
+    TriggerClientEvent('Client:Character:FirstSpawn', src)
+    ---
+    ---
+    ---
+    ---
+    TriggerClientEvent('creator:OpenCreator', src)
+    Wait(500)
+    c.inst.SetPlayer(src, c.inst.New())
 end)

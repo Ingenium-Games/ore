@@ -30,18 +30,18 @@ end
 ---@param source number ""
 ---@param num number "The number of the istance/routing bucket"
 ---@param bool boolean "Is this a new join or in character already"
-function c.inst.SetPlayer(source, num, bool)
+function c.inst.SetPlayer(source, num)
     local src = tonumber(source)
-    local xPlayer = c.data.GetPlayer(source)
-    local current = GetPlayerRoutingBucket(source)
-    if bool then
-        SetPlayerRoutingBucket(source, num)
-        SetEntityRoutingBucket(GetPlayerPed(source), num)
+    local xPlayer = c.data.GetPlayer(src)
+    local current = GetPlayerRoutingBucket(src)
+    if not xPlayer then
+        SetPlayerRoutingBucket(src, num)
+        SetEntityRoutingBucket(GetPlayerPed(src), num)
     else
         if current ~= num then
             -- to add mumble changes based on either pmavoice or frazzles mumble script
-            SetPlayerRoutingBucket(source, num)
-            SetEntityRoutingBucket(GetPlayerPed(source), num)
+            SetPlayerRoutingBucket(src, num)
+            SetEntityRoutingBucket(GetPlayerPed(src), num)
             xPlayer.SetInstance(num)
             c.sql.SetCharacterInstance(xPlayer.GetIdentifier(), num, c.debug(xPlayer.Name.." added to Instance: "..num))
         end

@@ -13,7 +13,6 @@ NOTES.
 math.randomseed(c.Seed)
 -- ====================================================================================--
 
-
 function c.job.GetJob(str)
     return c.jobs[str]
 end
@@ -21,7 +20,6 @@ end
 function c.job.GetJobs()
     return c.jobs
 end
-
 
 local CurrentlyActive = {}
 
