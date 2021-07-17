@@ -936,6 +936,73 @@ function c.sql.SetCharacterAppearance(character_id, style, cb)
     end)
 end
 
+--- SET - The `Appearance` from the `Character_ID`
+-- @`Character_ID`
+-- @style - TABLE VALUE
+-- cb if any.
+function c.sql.AddCharacterOutfit(Character_ID, Number, style, cb)
+    local Appearance = json.encode(style)
+    MySQL.Async.execute('INSERT INTO character_outfits (`Character_ID`, `Number`, `Appearance`) VALUES (@Character_ID, @Number, @Appearance);', {
+        ['@Character_ID'] = Character_ID,
+        ['@Number'] = Number,
+        ['@Appearance'] = Appearance,
+    }, function(data)
+        if data then
+            --
+        end
+        if cb ~= nil then
+            cb()
+        end
+    end)
+end
+
+--- Get - All `Character_ID` that are currently marked as `Active` IS TRUE
+function c.sql.GetCharacterOutfitsAsCount(Character_ID, cb)
+    local IsBusy = true
+    local result = nil
+    MySQL.Async.fetchAll('SELECT COUNT(`Character_ID`) AS "Count" FROM `character_outfits` WHERE Character_ID = @Character_ID;', {
+        ['@Character_ID'] = Character_ID,
+    }
+    , function(data)
+        result = data
+        IsBusy = false
+    end)
+    while IsBusy do
+        Wait(0)
+    end
+    if cb then
+        cb()
+    end
+    -- Always return a value.
+    if result == nil then
+        result = 0
+    end
+    --
+    return result
+end
+
+--- Get - All `Character_ID` that are currently marked as `Active` IS TRUE
+function c.sql.GetCharacterOutfitByNumber(Character_ID, Number, cb)
+    local IsBusy = true
+    local result = nil
+    MySQL.Async.fetchScalar('SELECT `Appearance` FROM `character_outfits` WHERE `Character_ID` = @Character_ID AND `Number` = @Number;', {
+        ['@Character_ID'] = Character_ID,
+        ['@Number'] = Number,
+    }
+    , function(data)
+        result = json.decode(data)
+        IsBusy = false
+    end)
+    while IsBusy do
+        Wait(0)
+    end
+    if cb then
+        cb()
+    end
+    --
+    return result
+end
+
 -----------------------
 --- Character Statuses
 -----------------------

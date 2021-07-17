@@ -26,6 +26,7 @@ conf.disable.vehicles = {
 	`APC`,	
 	`KHANJALI`,
 	-- Supers that spawn around town.
+	--[[
 	`ADDER`,
 	`AUTARCH`,
 	`BANSHEE2`,
@@ -74,4 +75,5 @@ conf.disable.vehicles = {
 	`ZENTORNO`,
 	`ZORRUSSO`,
 	`FURIA`,
+	]]
 }

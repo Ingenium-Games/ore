@@ -27,11 +27,13 @@ local CurrentlyActive = {}
 function c.job.ActiveMembers()
     local tab = {}
     for k,v in ipairs(CurrentlyActive) do
-        if not tab[v.name] then
-            table.insert(tab, v.name)
-            tab[v.name] = 1
-        else    
-            tab[v.name] = tab[v.name] + 1
+        if v then
+            if not tab[v.name] then
+                table.insert(tab, v.name)
+                tab[v.name] = 1
+            else    
+                tab[v.name] = tab[v.name] + 1
+            end
         end
     end
     return tab
@@ -66,8 +68,8 @@ end)
 
 -- cleanup the table to reduce crap.
 AddEventHandler('playerDropped', function()
-    local src = req or source
-    table.remove(CurrentlyActive, src)
+    local src = source
+    CurrentlyActive[src] = false
 end)
 
 --[[
