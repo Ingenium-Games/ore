@@ -209,6 +209,9 @@ function c.class.CreateCharacter(character_id)
     self.SetJob = function(t)
         local tab = c.check.Table(t)
         if c.job.Exist(t.job, t.grade) then
+            -- Remove from Current Job 
+            ExecuteCommand(('remove_principal identifier.%s job.%s'):format(self.License_ID, self.GetJob().Name))
+            --
             local jobObject, gradeObject = c.jobs[t.job], c.jobs[t.job].grades[t.grade]
             --
             self.Job.Name = jobObject.name

@@ -143,7 +143,6 @@ function c.class.CreateJob(tab)
         end
     end
 
-
     c.debug("End Job Creation")
     return self
 end

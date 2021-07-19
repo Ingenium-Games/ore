@@ -28,11 +28,11 @@ function c.job.ActiveMembers()
     local tab = {}
     for k,v in ipairs(CurrentlyActive) do
         if v then
-            if not tab[v.name] then
-                table.insert(tab, v.name)
-                tab[v.name] = 1
+            if not tab[v.Name] then
+                table.insert(tab, v.Name)
+                tab[v.Name] = 1
             else    
-                tab[v.name] = tab[v.name] + 1
+                tab[v.Name] = tab[v.Name] + 1
             end
         end
     end
@@ -43,7 +43,7 @@ end
 ---@param job string
 ---@param grade any
 function c.job.Exist(job, grade)
-	grade = tostring(grade)
+	local grade = tostring(grade)
 	if job and grade then
 		if c.jobs[job] and c.jobs[job].grades[grade] then
 			return true
@@ -55,15 +55,15 @@ end
 --- Same as above.
 ---@param job string
 ---@param grade any
-function c.DoesJobExist(job,grade)
-    return c.job.Exist(job,grade)
+function c.DoesJobExist(job, grade)
+    return c.job.Exist(job, grade)
 end
 
 -- req = source or number id calling event if internal
 -- t = {name = 'police', grade = 1}, Job and then Grade
-AddEventHandler('Server:Character:SetJob', function(req, t)
+AddEventHandler('Server:Character:SetJob', function(req, data)
     local src = req or source
-    CurrentlyActive[src] = t
+    CurrentlyActive[src] = data
 end)
 
 -- cleanup the table to reduce crap.

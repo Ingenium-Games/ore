@@ -93,11 +93,14 @@ end)
 
 AddEventHandler('playerDropped', function()
     local src = tonumber(source)
-    local data = c.data.GetPlayer(src)
+    local xPlayer = c.data.GetPlayer(src)
     -- if the data not false?
-    if data then
-        c.sql.SaveUser(data, function()
-            c.sql.SetCharacterInActive(data.Character_ID, function()
+    if xPlayer then
+        -- Remove Job Permissions
+        ExecuteCommand(('remove_principal identifier.%s job.%s'):format(xPlayer.License_ID, xPlayer.GetJob().Name))
+        -- Save Data
+        c.sql.SaveUser(xPlayer, function()
+            c.sql.SetCharacterInActive(xPlayer.Character_ID, function()
                 c.debug("[E] 'playerDropped' : Player Disconnection.")
                 c.data.RemovePlayer(src)
             end)

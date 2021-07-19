@@ -27,8 +27,13 @@ end)
 
 -- Use this to remove any things connected to Characters like police blips etc.
 RegisterNetEvent("Server:Character:Switch")
-AddEventHandler("Server:Character:Switch", function()
-    
+AddEventHandler("Server:Character:Switch", function(req)
+    local src = req or source
+    local xPlayer = c.data.GetPlayer(src)
+    -- Remove Player Identifier from job as entity if no longer existing.
+    ExecuteCommand(('remove_principal identifier.%s job.%s'):format(xPlayer.License_ID, xPlayer.GetJob().Name))
+    --
+
 end)
 
 -- Server Death Handler - if was killed by a player or not.
@@ -45,9 +50,11 @@ end)
 --@ req = server_id or source
 --@ t = {'name'='police','grade'=0}
 RegisterNetEvent("Server:Character:SetJob")
-AddEventHandler("Server:Character:SetJob", function(req, t)
+AddEventHandler("Server:Character:SetJob", function(req, data)
     local src = req or source
-
+    local xPlayer = c.data.GetPlayer(src)
+    -- and Add to new job
+    ExecuteCommand(('add_principal identifier.%s job.%s'):format(xPlayer.License_ID, xPlayer.GetJob().Name))
 end)
 
 -- Default player to instance listed in conf.defaultinstance
