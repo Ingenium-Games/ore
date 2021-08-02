@@ -39,6 +39,9 @@ function c.job.ActiveMembers()
     return tab
 end
 
+-- Testing purposes Only
+exports("JobsOnline", c.job.ActiveMembers())
+
 --- 
 ---@param job string
 ---@param grade any
@@ -78,3 +81,47 @@ self.TriggerEvent('Client:Character:SetJob', self.GetJob())
 ]]--
 
 --[[Using currently active table to send out pay cycles.]]--
+
+--- func desc
+---@param bool boolean "Use the Job funds to pay all employees?" 
+function c.job.Payroll(bool)
+    if bool then
+        for k,v in paris(CurrentlyActive) do
+            if v then
+                -- CurrentlyActive[1] = [Name='Police',Grade=2,etc,etc]
+                local xPlayer = c.data.GetPlayer(k)
+                local xJob = c.data.GetJob(v.Name)
+                --
+                xPlayer.AddBank(v.Grade_Salary)
+                TriggerClientEvent("Client:Notify", k, "Recieved Payroll: \n$"..v.Grade_Salary.." deposided confirmed. \n- Maze Bank", 'warn')
+                xJob.RemoveBank(v.Grade_Salary)
+            end
+        end
+    else
+        for k,v in paris(CurrentlyActive) do
+            if v then
+                -- CurrentlyActive[1] = [Name='Police',Grade=2,etc,etc]
+                local xPlayer = c.data.GetPlayer(k)
+                --
+                xPlayer.AddBank(v.Grade_Salary)
+                TriggerClientEvent("Client:Notify", k, "Recieved Payroll: \n$"..v.Grade_Salary.." deposided confirmed. \n- Maze Bank", 'warn')
+            end
+        end 
+    end
+end
+
+function c.job.PayCycle()
+    local time = conf.paycycle
+    local function Do()
+        c.job.Payroll(conf.enablejobpayroll)     
+        -- Adding cleanup of empty or false records.
+        for k,v in pairs(CurrentlyActive) do
+            -- Really make sure its a false record.
+            if v == false then
+                table.remove(CurrentlyActive, k)
+            end
+        end
+        SetTimeout(Do, time)
+    end
+    SetTimeout(Do, time)
+end

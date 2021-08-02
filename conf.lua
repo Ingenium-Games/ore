@@ -81,7 +81,7 @@ BANK START AMOUNT :
 ]]--
 conf.startingbank = 2500
 conf.startingloan = 0
-conf.bankoverdraw = 25
+conf.bankoverdraw = 10
 --[[
 BANK LOANS TIMES TO PAY: 
     -- Repayment Time to take money from bank account
@@ -105,5 +105,15 @@ TIMEZONE ADJUSTMENT:
 ]]--
 conf.altertime = -6
 
+--[[
+JOBS AND DEFAULTS
+    -- DEFAULT STARTING BALANCES FOR ALL JOBS IPON INITIAL CREATION
+    -- Take money from Job account to pay staff?
+    -- Use the job center rather than have all jobs whitelisted. (Not really intended outside of private servers, private might do seasonal things, and offer different ways of setting up bosses etc.)
+]]--
 conf.defaultjobaccounts = {["bank"] = 25000, ["safe"] = 0}
+conf.enablejobpayroll = true
+conf.enablejobcenter = true
+conf.paycycle = 15 * conf.min
+
 -- ====================================================================================--

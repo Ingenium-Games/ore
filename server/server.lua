@@ -24,7 +24,7 @@ function OnStart()
     c.data.Initilize()
     --
     while c.Loading do
-        Wait(1250)
+        Wait(25)
     end
     -- Create Channels for Instances
     c.mumble.GenerateInstanceChannels()
@@ -32,7 +32,8 @@ function OnStart()
     c.time.ServerSync()
     -- Players save to the DB.
     c.data.ServerSync()
-    --
+    -- Start Paying players based on conf.
+    c.job.PayCycle()  
 end
 -- ====================================================================================--
 RegisterNetEvent('Server:PlayerConnecting')
