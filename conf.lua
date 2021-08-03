@@ -95,7 +95,7 @@ PLAYER HUNGER / THIRST / HP / ARMOUR:
 ]]--
 conf.defaulthealth = 400 -- DOUBE BOI
 conf.defaultarmour = 300 --(Oh Baby a TRIPPLE)
-conf.hungertime = conf.min * 4
+conf.hungertime = conf.min * 4.1
 conf.thirsttime = conf.min * 3.2
 conf.clientnuisync = conf.sec
 --[[
@@ -104,16 +104,18 @@ TIMEZONE ADJUSTMENT:
     -- You can do greater, but it will break your game.
 ]]--
 conf.altertime = -6
-
 --[[
 JOBS AND DEFAULTS
     -- DEFAULT STARTING BALANCES FOR ALL JOBS IPON INITIAL CREATION
     -- Take money from Job account to pay staff?
     -- Use the job center rather than have all jobs whitelisted. (Not really intended outside of private servers, private might do seasonal things, and offer different ways of setting up bosses etc.)
+    -- Permit jobs to be able to go off duty to not get paid for service while online.
+    -- The time taken serverside to do pay runs.
 ]]--
 conf.defaultjobaccounts = {["bank"] = 25000, ["safe"] = 0}
 conf.enablejobpayroll = true
 conf.enablejobcenter = true
+conf.enableduty = true
 conf.paycycle = 15 * conf.min
 
 -- ====================================================================================--

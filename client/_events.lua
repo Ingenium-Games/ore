@@ -58,3 +58,24 @@ AddEventHandler("Client:Character:Switch", function()
     
 
 end)
+
+
+RegisterNetEvent("Client:Character:OffDuty")
+AddEventHandler("Client:Character:OffDuty", function()
+    if conf.enableduty then
+        -- Add Functions or Hooks here!
+
+    else
+        c.debug("Ability to go off duty has ben disabled.")
+    end
+end)
+
+RegisterNetEvent("Client:Character:OnDuty")
+AddEventHandler("Client:Character:OnDuty", function()
+    if conf.enableduty then
+        -- Add Functions or Hooks here!
+    
+    else
+        c.debug("Ability to go on duty has ben disabled.")
+    end
+end)

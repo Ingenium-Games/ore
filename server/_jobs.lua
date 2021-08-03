@@ -62,32 +62,48 @@ function c.DoesJobExist(job, grade)
     return c.job.Exist(job, grade)
 end
 
+RegisterNetEvent("Server:Character:OffDuty")
+AddEventHandler("Server:Character:OffDuty", function(req)
+    local src = req or source
+    if conf.enableduty then
+        CurrentlyActive[src] = "OffDuty"
+        TriggerClientEvent("Client:Character:OffDuty",src)
+    else
+        c.debug("Ability to go off duty has ben disabled.")
+    end
+end)
+
+RegisterNetEvent("Server:Character:OnDuty")
+AddEventHandler("Server:Character:OnDuty", function(req)
+    local src = req or source
+    local xPlayer = c.data.GetPlayer(src)
+    if conf.enableduty then
+        CurrentlyActive[src] = xPlayer.GetJob()
+        TriggerClientEvent("Client:Character:OnDuty",src)
+    else
+        c.debug("Ability to go on duty has ben disabled.")
+    end
+end)
+
 -- req = source or number id calling event if internal
 -- t = {name = 'police', grade = 1}, Job and then Grade
-AddEventHandler('Server:Character:SetJob', function(req, data)
+AddEventHandler("Server:Character:SetJob", function(req, data)
     local src = req or source
     CurrentlyActive[src] = data
 end)
 
 -- cleanup the table to reduce crap.
-AddEventHandler('playerDropped', function()
+AddEventHandler("playerDropped", function()
     local src = source
     CurrentlyActive[src] = false
 end)
-
---[[
-TriggerEvent('Server:Character:SetJob', self.ID, self.GetJob())
-self.TriggerEvent('Client:Character:SetJob', self.GetJob())
-]]--
-
---[[Using currently active table to send out pay cycles.]]--
 
 --- func desc
 ---@param bool boolean "Use the Job funds to pay all employees?" 
 function c.job.Payroll(bool)
     if bool then
         for k,v in paris(CurrentlyActive) do
-            if v then
+            if type(v) == 'table' then
                 -- CurrentlyActive[1] = [Name='Police',Grade=2,etc,etc]
                 local xPlayer = c.data.GetPlayer(k)
                 local xJob = c.data.GetJob(v.Name)
@@ -95,16 +111,20 @@ function c.job.Payroll(bool)
                 xPlayer.AddBank(v.Grade_Salary)
                 TriggerClientEvent("Client:Notify", k, "Recieved Payroll: \n$"..v.Grade_Salary.." deposided confirmed. \n- Maze Bank", 'warn')
                 xJob.RemoveBank(v.Grade_Salary)
+            elseif v == "OffDuty" then
+                TriggerClientEvent("Client:Notify", k, "Payroll for active staff paid.")
             end
         end
     else
         for k,v in paris(CurrentlyActive) do
-            if v then
+            if type(v) == 'table' then
                 -- CurrentlyActive[1] = [Name='Police',Grade=2,etc,etc]
                 local xPlayer = c.data.GetPlayer(k)
                 --
                 xPlayer.AddBank(v.Grade_Salary)
                 TriggerClientEvent("Client:Notify", k, "Recieved Payroll: \n$"..v.Grade_Salary.." deposided confirmed. \n- Maze Bank", 'warn')
+            elseif v == "OffDuty" then
+                TriggerClientEvent("Client:Notify", k, "Payroll for active staff paid.")
             end
         end 
     end
