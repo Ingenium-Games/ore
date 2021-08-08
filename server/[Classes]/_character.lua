@@ -223,21 +223,16 @@ function c.class.CreateCharacter(character_id)
     --
     self.SetJob = function(t)
         if c.job.Exist(t.Name, t.Grade) then
-            -- Remove from Current Job 
-            ExecuteCommand(('remove_principal identifier.%s job.%s'):format(self.License_ID, self.Job.Name))
-            --
-            local Object, Grades = c.jobs[t.Name], c.jobs[t.Name].Grades[t.Grade]
+            local Object = c.jobs[t.Name]
             --
             self.Job.Name = Object.Name
             self.Job.Label = Object.Label
-            self.Job.Grade = Grades.Grade
-            self.Job.Grade_Label = Grades.Grade_Label
-            self.Job.Grade_Salary = Grades.Grade_Salary
             --
-            TriggerEvent('Server:Character:SetJob', self.ID, self.GetJob())
-            TriggerClientEvent('Client:Character:SetJob', self.ID, self.GetJob())
+            self.Job.Grade = Object.Grades[t.Grade].Grade
+            self.Job.Grade_Label = Object.Grades[t.Grade].Grade_Label
+            self.Job.Grade_Salary = Object.Grades[t.Grade].Grade_Salary
         else
-            c.debug('Ignoring invalid .SetJob() usage for %s'):format(self.Name)
+            c.debug('Ignoring invalid .SetJob()')
         end
     end
     --

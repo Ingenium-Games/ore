@@ -80,7 +80,7 @@ function c.class.CreateJob(tab)
                 acc = c.math.Decimals(num, 0)
                 if acc < 0 then
                     acc = bkp
-                    c.debug("Job "..self.Name.." has SetSafe() Cancelled due to Negative  balance remaining.")
+                    c.debug("Job "..self.Name.." has SetSafe() Cancelled due to Negative balance remaining.")
                     CancelEvent()
                 end
             end

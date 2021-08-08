@@ -37,6 +37,10 @@ function c.class.CreateUser(req)
         DropPlayer(self.src, reason)
     end
     --
+    self.GetName = function()
+        return self.Name
+    end
+    --
     self.GetAce = function()
         return self.Ace
     end

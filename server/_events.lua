@@ -15,6 +15,7 @@ math.randomseed(c.Seed)
 RegisterNetEvent("Server:Character:Loaded")
 AddEventHandler("Server:Character:Loaded", function()
     local src = source
+    local xPlayer = c.data.GetPlayer(src)
 
 end)
 
@@ -23,12 +24,16 @@ RegisterNetEvent("Server:Character:Ready")
 AddEventHandler("Server:Character:Ready", function()
     local src = source
     local xPlayer = c.data.GetPlayer(src)
-    
-    -- Work around to trigger SetJob on load
-    local job = xPlayer.GetJob()
-    xPlayer.SetJob(job)
+    -- Remove from current ACL Job Group
+    ExecuteCommand(('remove_principal identifier.%s job.%s'):format(xPlayer.GetLicense_ID(), xPlayer.GetJob().Name))
     --
-
+    xPlayer.SetJob(xPlayer.GetJob())
+    Wait(250)
+    --
+    TriggerEvent('Server:Character:SetJob', xPlayer.ID, xPlayer.GetJob())
+    TriggerClientEvent('Client:Character:SetJob', xPlayer.ID, xPlayer.GetJob())
+    --
+    print(c.table.Dump(xPlayer.GetJob()))
 end)
 
 -- Use this to remove any things connected to Characters like police blips etc.

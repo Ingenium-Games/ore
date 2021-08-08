@@ -82,7 +82,7 @@ function CharacterMake() {
 };
 
 /* https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript */
-function makeid(length) {
+function Rand(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
@@ -97,18 +97,17 @@ function OnNotify(data){
     var text = data.text
     var style = data.style
     var fade = data.fade
-    var rand = makeid(35)
     var element
     if (style == 'normal') {
-      element = $('<div id="'+ rand +'" class="noty normal"></div>'); 
+      element = $('<div class="noty normal"></div>'); 
     } else if (style == 'success') {
-      element = $('<div id="'+ rand +'" class="noty success"></div>');
+      element = $('<div class="noty success"></div>');
     } else if (style == 'warn') {
-      element = $('<div id="'+ rand +'" class="noty warn"></div>');
+      element = $('<div class="noty warn"></div>');
     } else if (style == 'error') {
-      element = $('<div id="'+ rand +'" class="noty error"></div>');
+      element = $('<div class="noty error"></div>');
     } else {
-      element = $('<div id="'+ rand +'" class="noty normal"></div>');    
+      element = $('<div class="noty normal"></div>');    
     };
 
     $('#Notify-Window').prepend(element);

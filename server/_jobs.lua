@@ -46,9 +46,8 @@ exports("JobsOnline", c.job.ActiveMembers())
 ---@param job string
 ---@param grade any
 function c.job.Exist(name, grade)
-	local grade = tostring(grade)
 	if name and grade then
-		if c.jobs[name] and c.jobs[name].Grades[grade] then
+		if c.jobs[name].Grades[grade] then
 			return true
 		end
 	end
@@ -90,6 +89,7 @@ end)
 AddEventHandler("Server:Character:SetJob", function(req, data)
     local src = req or source
     CurrentlyActive[src] = data
+    print(c.table.Dump(CurrentlyActive))
 end)
 
 -- cleanup the table to reduce crap.
@@ -102,27 +102,27 @@ end)
 ---@param bool boolean "Use the Job funds to pay all employees?" 
 function c.job.Payroll(bool)
     if bool then
-        for k,v in paris(CurrentlyActive) do
+        for k,v in ipairs(CurrentlyActive) do
             if type(v) == 'table' then
-                -- CurrentlyActive[1] = [Name='Police',Grade=2,etc,etc]
+                -- CurrentlyActive[1] = [Name='popo',Grade=2,etc,etc]
                 local xPlayer = c.data.GetPlayer(k)
                 local xJob = c.data.GetJob(v.Name)
                 --
                 xPlayer.AddBank(v.Grade_Salary)
-                TriggerClientEvent("Client:Notify", k, "Recieved Payroll: \n$"..v.Grade_Salary.." deposided confirmed. \n- Maze Bank", 'warn')
+                TriggerClientEvent("Client:Notify", k, "Recieved Payment: $"..v.Grade_Salary.." deposided confirmed.")
                 xJob.RemoveBank(v.Grade_Salary)
             elseif v == "OffDuty" then
                 TriggerClientEvent("Client:Notify", k, "Payroll for active staff paid.")
             end
         end
     else
-        for k,v in paris(CurrentlyActive) do
+        for k,v in ipairs(CurrentlyActive) do
             if type(v) == 'table' then
                 -- CurrentlyActive[1] = [Name='Police',Grade=2,etc,etc]
                 local xPlayer = c.data.GetPlayer(k)
                 --
                 xPlayer.AddBank(v.Grade_Salary)
-                TriggerClientEvent("Client:Notify", k, "Recieved Payroll: \n$"..v.Grade_Salary.." deposided confirmed. \n- Maze Bank", 'warn')
+                TriggerClientEvent("Client:Notify", k, "Recieved Payment: $"..v.Grade_Salary.." deposided confirmed.")
             elseif v == "OffDuty" then
                 TriggerClientEvent("Client:Notify", k, "Payroll for active staff paid.")
             end
@@ -134,7 +134,7 @@ function c.job.PayCycle()
     local function Do()
         c.job.Payroll(conf.enablejobpayroll)     
         -- Adding cleanup of empty or false records.
-        for k,v in pairs(CurrentlyActive) do
+        for k,v in ipairs(CurrentlyActive) do
             -- Really make sure its a false record.
             if v == false then
                 table.remove(CurrentlyActive, k)
