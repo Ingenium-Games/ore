@@ -101,9 +101,9 @@ RegisterCommand('setjob', function(source, ...)
         if c.job.Exist(args[2], args[3]) then
             local xPlayer = c.data.GetPlayer(args[1])
             xPlayer.SetJob(args[2], args[3])
-            TriggerClientEvent("Client:Notify", src, 'ID:'..args[1]..', JobName: '..args[2]..', JobGrade: '..args[3]..'.)
+            TriggerClientEvent("Client:Notify", src, 'ID:'..args[1]..', JobName: '..args[2]..', JobGrade: '..args[3]..'.')
         else
-            TriggerClientEvent("Client:Notify", src, 'JobName: '..args[2]..' or JobGrade: '..args[3]..', does not exist.)
+            TriggerClientEvent("Client:Notify", src, 'JobName: '..args[2]..' or JobGrade: '..args[3]..', does not exist.')
         end
     end    
 end, true)
