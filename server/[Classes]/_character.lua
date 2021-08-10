@@ -104,7 +104,7 @@ function c.class.CreateCharacter(character_id)
     self.GetAccount = function(acc)
         for k, v in pairs(self.Accounts) do
             if k == acc then
-                return k
+                return v
             end
         end
     end
@@ -115,7 +115,7 @@ function c.class.CreateCharacter(character_id)
     --
     self.GetLicense = function(license)
         for k, v in pairs(self.Licenses) do
-            if v == license then
+            if k == license then
                 return v
             end
         end
@@ -132,8 +132,7 @@ function c.class.CreateCharacter(character_id)
         if num >= 0 then
             local acc = self.GetAccount('cash')
             if acc then
-                local nCash = c.math.Decimals(num, 0)
-                acc = nCash
+                acc = c.math.Decimals(num, 0)
                 if acc < 0 then
                     acc = 0
                     c.debug("Player "..self.ID.." Kicked due to negative cash balance")

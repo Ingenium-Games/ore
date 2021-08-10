@@ -47,7 +47,7 @@ function c.class.CreateJob(tab)
         local bool = c.check.Boolean(b)
         if bool then
             local Accounts = {}
-            for k,v in ipairs(self.Accounts) do
+            for k,v in pairs(self.Accounts) do
                 Accounts[k] = v
             end
             return Accounts
@@ -57,9 +57,9 @@ function c.class.CreateJob(tab)
     end
     --
     self.GetAccount = function(acc)
-        for k, v in ipairs(self.Accounts) do
+        for k, v in pairs(self.Accounts) do
             if k == acc then
-                return k
+                return v
             end
         end
     end

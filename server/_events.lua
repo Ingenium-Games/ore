@@ -33,7 +33,6 @@ AddEventHandler("Server:Character:Ready", function()
     TriggerEvent('Server:Character:SetJob', xPlayer.ID, xPlayer.GetJob())
     TriggerClientEvent('Client:Character:SetJob', xPlayer.ID, xPlayer.GetJob())
     --
-    print(c.table.Dump(xPlayer.GetJob()))
 end)
 
 -- Use this to remove any things connected to Characters like police blips etc.
