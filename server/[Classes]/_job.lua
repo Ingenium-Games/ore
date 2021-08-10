@@ -11,7 +11,7 @@ math.randomseed(c.Seed)
 -- ====================================================================================--
 
 function c.class.CreateJob(tab)
-    c.debug('Start Job Creation')
+    c.debug("Start Job Creation")
     local self = {}
     --
     self.Name = tab.Name
@@ -39,7 +39,7 @@ function c.class.CreateJob(tab)
         if #str <= 1500 then
             self.Description = str
         else
-            c.debug('Unable to set description as length is too long. Must be less than 255 characters.')
+            c.debug("Unable to set description as length is too long. Must be less than 255 characters.")
         end
     end
     --
@@ -64,8 +64,17 @@ function c.class.CreateJob(tab)
         end
     end
     --
+    self.SetAccount = function(acc, v)
+        local num = c.check.Number(v)
+        for k, v in pairs(self.Accounts) do
+            if k == acc then
+                v = num
+            end
+        end
+    end
+    --
     self.GetSafe = function()
-        local acc = self.GetAccount('safe')
+        local acc = self.GetAccount("safe")
         if acc then
             return acc
         end
@@ -74,30 +83,24 @@ function c.class.CreateJob(tab)
     self.SetSafe = function(v)
         local num = c.check.Number(v)
         if num >= 0 then
-            local acc = self.GetAccount('safe')
-            if acc then
-                local bkp = acc
-                acc = c.math.Decimals(num, 0)
-                if acc < 0 then
-                    acc = bkp
-                    c.debug("Job "..self.Name.." has SetSafe() Cancelled due to Negative balance remaining.")
-                    CancelEvent()
-                end
-            end
+            local acc = c.math.Decimals(num, 0)
+            self.SetAccount("safe", acc)
         end
     end
     --
     self.AddSafe = function(v)
         local num = c.check.Number(v)
         if num > 0 then
-            local acc = self.GetAccount('safe')
+            local acc = self.GetAccount("safe")
             if acc then
                 local bkp = acc
                 acc = acc + c.math.Decimals(num, 0)
                 if acc < 0 then
-                    acc = bkp
+                    self.SetAccount("safe", bkp)
                     c.debug("Job "..self.Name.." has AddSafe() Cancelled due to Negative balance remaining.")
                     CancelEvent()
+                else
+                    self.SetAccount("safe", acc)
                 end
             end
         end
@@ -106,21 +109,23 @@ function c.class.CreateJob(tab)
     self.RemoveSafe = function(v)
         local num = c.check.Number(v)
         if num > 0 then
-            local acc = self.GetAccount('safe')
+            local acc = self.GetAccount("safe")
             if acc then
                 local bkp = acc
                 acc = acc - c.math.Decimals(num, 0)
                 if acc < 0 then
-                    acc = bkp
-                    c.debug("Job "..self.Name.." has SetSafe() Cancelled due to Negative balance remaining.")
+                    self.SetAccount("safe", bkp)
+                    c.debug("Job "..self.Name.." has RemoveSafe() Cancelled due to Negative balance remaining.")
                     CancelEvent()
+                else
+                    self.SetAccount("safe", acc)
                 end
             end
         end
     end
     --
     self.GetBank = function()
-        local acc = self.GetAccount('bank')
+        local acc = self.GetAccount("bank")
         if acc then
             return acc
         end
@@ -128,26 +133,20 @@ function c.class.CreateJob(tab)
     --
     self.SetBank = function(v)
         local num = c.check.Number(v)
-        if num >= 0 then
-            local acc = self.GetAccount('bank')
-            if acc then
-                local bkp = acc
-                acc = c.math.Decimals(num, 0)
-                if acc < 0 then
-
-                end
-            end
-        end
+        local acc = c.math.Decimals(num, 0)
+        self.SetAccount("bank", acc)
     end
     --
     self.AddBank = function(v)
         local num = c.check.Number(v)
         if num > 0 then
-            local acc = self.GetAccount('bank')
+            local acc = self.GetAccount("bank")
             if acc then
                 acc = acc + c.math.Decimals(num, 0)
                 if acc < 0 then
-
+                    self.SetAccount("bank", acc)
+                else
+                    self.SetAccount("bank", acc)
                 end
             end
         end
@@ -156,11 +155,13 @@ function c.class.CreateJob(tab)
     self.RemoveBank = function(v)
         local num = c.check.Number(v)
         if num > 0 then
-            local acc = self.GetAccount('bank')
+            local acc = self.GetAccount("bank")
             if acc then
                 acc = acc - c.math.Decimals(num, 0)
                 if acc < 0 then
-
+                    self.SetAccount("bank", acc)
+                else
+                    self.SetAccount("bank", acc)
                 end
             end
         end
