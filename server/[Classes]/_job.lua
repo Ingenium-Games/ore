@@ -58,8 +58,8 @@ function c.class.CreateJob(tab)
     --
     self.GetAccount = function(acc)
         for k, v in ipairs(self.Accounts) do
-            if v == acc then
-                return v
+            if k == acc then
+                return k
             end
         end
     end

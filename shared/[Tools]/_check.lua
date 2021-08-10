@@ -35,21 +35,6 @@ function c.check.Number(num, min, max)
     end
 end
 
-function c.check.NumberBetween(num, min, max)
-    local v = 0
-    assert(type(num) == 'number', 'Invalid variable type at argument #1, expected number, got '..type(num))
-    if type(num) ~= 'number' then
-        return v
-    else
-        if num >= min and num <= max then
-            return num
-        else
-            c.debug("Unable to add value lesser than "..min..", or greater than"..max..". Returned 0.")
-            return v
-        end
-    end
-end
-
 function c.check.Boolean(bool)
     local v = false
     assert(type(bool) == 'boolean', 'Invalid variable type at argument #1, expected boolean, got '..type(bool))

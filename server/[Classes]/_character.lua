@@ -103,8 +103,8 @@ function c.class.CreateCharacter(character_id)
     --
     self.GetAccount = function(acc)
         for k, v in pairs(self.Accounts) do
-            if v == acc then
-                return v
+            if k == acc then
+                return k
             end
         end
     end
