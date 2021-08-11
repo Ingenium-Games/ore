@@ -29,10 +29,10 @@ end
 function c.error(err)
     if conf.error then
         if type(err) == 'string' then
-            print("   ^7[^3Error^7]:  " .. "==    ", err)
+            print("   ^7[^3Error^7]:  ==    ", err)
             print(debug.traceback(_, 2))
         else
-            print("   ^7[^3Error^7]:  " .. "==    ", 'Unable to type(err) == string. [err] = ', err)
+            print("   ^7[^3Error^7]:  ==    ", 'Unable to type(err) == string. [err] = ', err)
             print(debug.traceback(_, 2))
         end
     end
@@ -40,7 +40,7 @@ end
 
 function c.debug(str)
     if conf.debug then
-        print("   ^7[^6Debug^7]:  " .. "==    ", str)
+        print("   ^7[^6Debug^7]:  ==    ", str)
     end
 end
 

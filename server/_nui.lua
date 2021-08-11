@@ -48,6 +48,8 @@ AddEventHandler('Server:Character:Request:Delete', function(Character_ID)
     end)
 end)
 
+
+-- Need to move this and clean it the fuck up, its gross atm.
 RegisterNetEvent('Server:Character:Request:Create')
 AddEventHandler('Server:Character:Request:Create', function(first_name, last_name, height, date)
     local src = tonumber(source)
@@ -57,19 +59,20 @@ AddEventHandler('Server:Character:Request:Create', function(first_name, last_nam
     local banknum = c.sql.GenerateAccountNumber()
     local prim = c.identifier(src)
     local data = {
-        Primary_ID = prim,
+        Primary_ID = prim, -- Owner
+        Character_ID = char, -- Unique ID
         First_Name = first_name,
         Last_Name = last_name,
         Height = height,
         Birth_Date = date,
-        Character_ID = char,
         City_ID = city,
         Phone = phone,
         Coords = json.encode(conf.spawn),
-        Accounts = json.encode({["bank"]=conf.startingbank, ["cash"]=125}),
-        Modifiers = json.encode({["Hunger"] = 1,["Thirst"] = 1,["Stress"] = 1})
+        Accounts = json.encode(conf.default.accounts),
+        Modifiers = json.encode(conf.default.modifiers),
     }
     c.sql.CreateCharacter(data, function()
+        -- CHain other required actions upon the initial data being added, like other tables that use forigen keys etc.
         c.sql.CreateLoanAccount(char, banknum)
         
     end)

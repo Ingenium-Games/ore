@@ -180,7 +180,7 @@ function c.data.CreateJobObjects()
     local jobs = c.job.GetJobs()
     for k,v in pairs(jobs) do
         if not c.jdex[k] then
-            c.jdex[k] = c.class.CreateJob(k)
+            c.jdex[k] = c.class.CreateJob(v)
         end
     end
 end
@@ -198,15 +198,17 @@ end
 -- Server to DB routine.
 function c.data.ServerSync()
     local function Do()
-        c.sql.SaveUsers(function()
-            c.debug('[F] ServerSync() : Users Synced.')
+        c.sql.SaveUsers(function() 
+            -- do 
         end)
-        c.sql.SaveVehicles(function()
-            c.debug('[F] ServerSync() : Vehicles Synced.')
+        c.sql.SaveVehicles(function() 
+            -- do 
         end)
-        c.sql.SaveJobs(function()
-            c.debug('[F] ServerSync() : Jobs Synced.')
+        c.sql.SaveJobs(function() 
+            -- do 
         end)
+        c.debug('[F] ServerSync() : Users, Vehicles, Jobs : [^5Saved^0].')
+        print("     ^7[^5Saved^7]:  ==      (Users, Vehicles, Jobs)")
         SetTimeout(conf.serversync, Do)
     end
     SetTimeout(conf.serversync, Do)

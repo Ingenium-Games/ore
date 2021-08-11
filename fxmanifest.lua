@@ -3,13 +3,13 @@ fx_version "cerulean"
 game "gta5"
 author "Twiitchter"
 description "ore: A FiveM C-ORE Resource to BUILD WITH"
-version "0.5.5"
+version "0.6"
 ------------------------------------------------------------------------------
 ui_page "nui/ore.html"
 loadscreen "https://www.ingenium.games/"
 ------------------------------------------------------------------------------
 -- shared
-shared_scripts {"conf.lua", "conf.cars.lua", "conf.disable.lua", "shared/_c.lua"}
+shared_scripts {"conf.lua", "conf.default.lua", "conf.cars.lua", "conf.disable.lua", "shared/_c.lua"}
 ------------------------------------------------------------------------------
 -- client
 client_scripts {"client/_var.lua", "shared/[Tools]/*.lua"," client/_functions.lua", "client/**/*.lua", "client/**/*.js"}

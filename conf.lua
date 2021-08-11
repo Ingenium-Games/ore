@@ -74,12 +74,11 @@ conf.imagetoken = ''
 INSTANCE/ROUTINGBUCKET :
     -- Default world for all players.
 ]]--
-conf.instancedefault = 0
+conf.instancedefault = 0 --
 --[[
 BANK START AMOUNT :
     -- What do you want in your bank accounts?
 ]]--
-conf.startingbank = 2500
 conf.startingloan = 0
 conf.bankoverdraw = 10
 --[[
@@ -93,7 +92,7 @@ conf.loaninterest = {h = 15, m = 0}
 PLAYER HUNGER / THIRST / HP / ARMOUR: 
     -- Values and times.
 ]]--
-conf.defaulthealth = 400 -- DOUBE BOI
+conf.defaulthealth = 400 --(DOUBE BOI)
 conf.defaultarmour = 300 --(Oh Baby a TRIPPLE)
 conf.hungertime = conf.min * 4.1
 conf.thirsttime = conf.min * 3.2
@@ -113,7 +112,7 @@ JOBS AND DEFAULTS
     -- The time taken serverside to do pay runs.
 ]]--
 conf.defaultjob = {["Name"] = "none", ["Grade"] = 1}
-conf.defaultjobaccounts = {["bank"] = 25000, ["safe"] = 0}
+conf.defaultjobaccounts = {["Bank"] = 25000, ["Safe"] = 0}
 conf.enablejobpayroll = true
 conf.enablejobcenter = true
 conf.enableduty = true
