@@ -1514,7 +1514,7 @@ end
 
 local JobSaveData = -1
 MySQL.Async.store(
-    "UPDATE `job_accounts` SET `Accounts` = @Accuonts WHERE `Name` = @Name;",
+    "UPDATE `job_accounts` SET `Accounts` = @Accounts WHERE `Name` = @Name;",
     function(id)
         JobSaveData = id
     end)
