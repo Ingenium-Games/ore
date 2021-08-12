@@ -34,7 +34,7 @@ function c.class.CreateUser(req)
     ExecuteCommand(('add_principal identifier.%s group.%s'):format(self.License_ID, self.Ace))
     --
     self.Kick = function(reason)
-        DropPlayer(self.src, reason)
+        DropPlayer(self.ID, reason)
     end
     --
     self.GetName = function()
