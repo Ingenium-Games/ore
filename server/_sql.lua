@@ -11,7 +11,7 @@ math.randomseed(c.Seed)
 -- ====================================================================================--
 local PlayerSaveData = -1
 MySQL.Async.store(
-    "UPDATE `characters` SET `Health` = @Health, `Armour` = @Armour, `Hunger` = @Hunger, `Thirst` = @Thirst, `Stress` = @Stress, `Coords` = @Coords, `Modifiers` = @Modifiers, `Accounts` = @Accounts WHERE `Character_ID` = @Character_ID;",
+    "UPDATE `characters` SET `Health` = @Health, `Armour` = @Armour, `Hunger` = @Hunger, `Thirst` = @Thirst, `Stress` = @Stress, `Coords` = @Coords, `Accounts` = @Accounts, `Modifiers` = @Modifiers, `Job` = @Job WHERE `Character_ID` = @Character_ID;",
     function(id)
         PlayerSaveData = id
     end)
@@ -31,6 +31,7 @@ function c.sql.SaveUser(data, cb)
         local Coords = json.encode(data.GetCoords())
         local Accounts = json.encode(data.GetAccounts())
         local Modifiers = json.encode(data.GetModifiers())
+        local Job = json.encode(data.GetJob())
         -- 
         local Character_ID = data.GetCharacter_ID()
         MySQL.Async.insert(PlayerSaveData, {
@@ -44,6 +45,7 @@ function c.sql.SaveUser(data, cb)
             ['@Coords'] = Coords,
             ['@Modifiers'] = Modifiers,
             ['@Accounts'] = Accounts,
+            ['@Job'] = Job,
             --
             ['@Character_ID'] = Character_ID
         }, function(r)
@@ -72,6 +74,7 @@ function c.sql.SaveUsers(cb)
             local Coords = json.encode(data.GetCoords())
             local Accounts = json.encode(data.GetAccounts())
             local Modifiers = json.encode(data.GetModifiers())
+            local Job = json.encode(data.GetJob())
             -- 
             local Character_ID = data.GetCharacter_ID()
             MySQL.Async.insert(PlayerSaveData, {
@@ -85,6 +88,7 @@ function c.sql.SaveUsers(cb)
                 ['@Coords'] = Coords,
                 ['@Modifiers'] = Modifiers,
                 ['@Accounts'] = Accounts,
+                ['@Job'] = Job,
                 --
                 ['@Character_ID'] = Character_ID
             }, function(r)

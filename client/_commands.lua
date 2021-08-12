@@ -42,17 +42,17 @@ RegisterKeyMapping('armhold', 'Arm Hold', 'keyboard', 'NumPad3')
 TriggerEvent("chat:addSuggestion", "/switch", "Use to change your character(s).")
 
 TriggerEvent("chat:addSuggestion", "/ban", "Admin Permission(s) Required.", {
-    {name = "[1]", help ="Server ID"},
+    {name = "1", help ="Server ID"},
 })
 
 TriggerEvent("chat:addSuggestion", "/kick", "Admin Permission(s) Required.", {
-    {name = "[1]", help ="Server ID"},
+    {name = "1", help ="Server ID"},
 })
 
 TriggerEvent("chat:addSuggestion", "/setjob", "Admin Permission(s) Required.", {
-    {name = "[1]", help ="Server ID"},
-    {name = "[2]", help ="Job Name"},
-    {name = "[3]", help ="Job Grade"},
+    {name = "1", help ="Server ID"},
+    {name = "2", help ="Job Name"},
+    {name = "3", help ="Job Grade"},
 })
 
 --[[

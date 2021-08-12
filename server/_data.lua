@@ -67,15 +67,15 @@ end
 --- Adds player to the player index.
 ---@param source number "source [server_id]"
 function c.data.AddPlayer(source)
-    table.insert(c.pdex, source)
+    table.insert(c.pdex, tonumber(source))
 end
 
 
 --- Gets player from the player table.
 ---@param source number
 function c.data.GetPlayer(source)
-    if type(c.pdex[source]) == 'table' then
-        return c.pdex[source]
+    if type(c.pdex[tonumber(source)]) == 'table' then
+        return c.pdex[tonumber(source)]
     else
         return false
     end
