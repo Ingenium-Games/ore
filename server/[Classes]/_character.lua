@@ -112,7 +112,7 @@ function c.class.CreateCharacter(character_id)
     self.SetAccount = function(acc, v)
         local num = c.check.Number(v)
         if self.Accounts[acc] then
-            self.Accounts[acc] = num
+            self.Accounts[acc] = c.math.Decimals(num, 0)
         else
             c.debug("Account entered does not exist")
         end

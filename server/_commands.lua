@@ -17,9 +17,9 @@ end, false)
 
 -- ====================================================================================--
 
-TriggerEvent("chat:addSuggestion", "/switch", "Use to change your character(s).", {})
+TriggerEvent("chat:addSuggestion", "/switch", "Use to change your character(s).")
 
-RegisterCommand('switch', function(source)
+RegisterCommand('switch', function(source, args, rawCommand)
     local src = tonumber(source)
     local Primary_ID = c.identifier(src)
     local Character_ID = c.sql.GetActiveCharacter(Primary_ID)
@@ -36,76 +36,56 @@ end, true)
 
 -- ====================================================================================--
 
-TriggerEvent("chat:addSuggestion", "/ban", "Admin Permission(s) Required.", {{
-    name = "TargetID",
-    help = "The Target's server ID in this session."
-}})
+TriggerEvent("chat:addSuggestion", "/ban", "Admin Permission(s) Required.", {
+    {name = "[1]", help ="Server ID"},
+})
 
-RegisterCommand('ban', function(source, ...)
+RegisterCommand('ban', function(source, args, rawCommand)
     local src = tonumber(source)
-    local args = {...}
-    if (type(args[1]) ~= 'number') then
-        TriggerClientEvent("Client:Notify", src, 'Invalid Number Used for /ban Command.')
+    if (args[1] == src) then
+        TriggerClientEvent("Client:Notify", src, 'You cannot /ban yourself.')
     else
-        if (args[1] == src) then
-            TriggerClientEvent("Client:Notify", src, 'You cannot /ban yourself.')
-        else
-            local Primary_ID = c.identifier(args[1])
-            local xPlayer = c.data.GetPlayer(args[1])
-            c.sql.SetBanned(Primary_ID, function()
-                xPlayer.Kick('You have been banned.')
-                TriggerClientEvent("Client:Notify", src, 'TargetID: ' .. args[1] .. ', has been banned.')
-            end)
-        end
+        local Primary_ID = c.identifier(args[1])
+        local xPlayer = c.data.GetPlayer(args[1])
+        c.sql.SetBanned(Primary_ID, function()
+            xPlayer.Kick('You have been banned.')
+            TriggerClientEvent("Client:Notify", src, 'TargetID: ' .. args[1] .. ', has been banned.')
+        end)
     end
 end, true)
 
 -- ====================================================================================--
 
-TriggerEvent("chat:addSuggestion", "/kick", "Admin Permission(s) Required.", {{
-    name = "TargetID",
-    help = "The Target's server ID in this session."
-}})
+TriggerEvent("chat:addSuggestion", "/kick", "Admin Permission(s) Required.", {
+    {name = "[1]", help ="Server ID"},
+})
 
-RegisterCommand('kick', function(source, ...)
+RegisterCommand('kick', function(source, args, rawCommand)
     local src = tonumber(source)
-    local args = {...}
-    if (type(args[1]) ~= 'number') then
-        TriggerClientEvent("Client:Notify", src, 'Invalid Number Used for /kick Command.')
+    if (args[1] == src) then
+        TriggerClientEvent("Client:Notify", src, 'You cannot /kick yourself.')
     else
-        if (args[1] == src) then
-            TriggerClientEvent("Client:Notify", src, 'You cannot /kick yourself.')
-        else
-            local xPlayer = c.data.GetPlayer(args[1])
-            xPlayer.Kick('You have been kicked.')
-            TriggerClientEvent("Client:Notify", src, 'TargetID: ' .. args[1] .. ', has been kicked.')
-        end
+        local xPlayer = c.data.GetPlayer(args[1])
+        xPlayer.Kick('You have been kicked.')
+        TriggerClientEvent("Client:Notify", src, 'TargetID: ' .. args[1] .. ', has been kicked.')
     end
 end, true)
 
 -- ====================================================================================--
 
-TriggerEvent("chat:addSuggestion", "/setjob", "Admin Permission(s) Required.", {{
-    name = "TargetID",
-    jobname = "JobName",
-    jobgrade = "JobGrade",
-    help = "Server ID [1], Job Name [2], Job Grade [3] : Use a Space between each variable. Expecting 3 Variables"
-}})
+TriggerEvent("chat:addSuggestion", "/setjob", "Admin Permission(s) Required.", {
+    {name = "[1]", help ="Server ID"},
+    {name = "[2]", help ="Job Name"},
+    {name = "[3]", help ="Job Grade"},
+})
 
-RegisterCommand('setjob', function(source, ...)
+RegisterCommand('setjob', function(source, args, rawCommand)
     local src = tonumber(source)
-    local args = {...}
-    if (type(args[1]) ~= 'number') then
-        TriggerClientEvent("Client:Notify", src, 'Invalid Server ID :'..args[1]..', Used for /setjob command.')
+    if c.job.Exist(args[2], args[3]) then
+        local xPlayer = c.data.GetPlayer(args[1])
+        xPlayer.SetJob(args[2], args[3])
+        TriggerClientEvent("Client:Notify", src, 'ID:'..args[1]..', JobName: '..args[2]..', JobGrade: '..args[3]..'.')
     else
-        if c.job.Exist(args[2], args[3]) then
-            local xPlayer = c.data.GetPlayer(args[1])
-            xPlayer.SetJob(args[2], args[3])
-            TriggerClientEvent("Client:Notify", src, 'ID:'..args[1]..', JobName: '..args[2]..', JobGrade: '..args[3]..'.')
-        else
-            TriggerClientEvent("Client:Notify", src, 'JobName: '..args[2]..' or JobGrade: '..args[3]..', does not exist.')
-        end
-    end    
+        TriggerClientEvent("Client:Notify", src, 'JobName: '..args[2]..' or JobGrade: '..args[3]..', does not exist.')
+    end
 end, true)
-
-

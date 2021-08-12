@@ -116,6 +116,6 @@ conf.defaultjobaccounts = {["Bank"] = 25000, ["Safe"] = 0}
 conf.enablejobpayroll = true
 conf.enablejobcenter = true
 conf.enableduty = true
-conf.paycycle = conf.min
+conf.paycycle = conf.min * 15
 
 -- ====================================================================================--
