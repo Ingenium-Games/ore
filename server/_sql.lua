@@ -1524,20 +1524,17 @@ MySQL.Async.store(
 function c.sql.SaveJobs(cb)
     local xJobs = c.data.GetJobs()
     for k,v in pairs(xJobs) do
-        local data = v
-        if data then
-            -- Tables require JSON Encoding.
-            local Accounts = json.encode(data.GetAccounts())
-            -- 
-            local Name = data.GetName()
-            MySQL.Async.insert(JobSaveData, {
-                ['@Accounts'] = Accounts,
-                --
-                ['@Name'] = Name
-            }, function(r)
-                -- Do nothing.
-            end)
-        end
+        -- Tables require JSON Encoding.
+        local Accounts = json.encode(xJobs[k].GetAccounts())
+        -- 
+        local Name = xJobs[k].GetName()
+        MySQL.Async.insert(JobSaveData, {
+            ['@Accounts'] = Accounts,
+            --
+            ['@Name'] = Name
+        }, function(r)
+            -- Do nothing.
+        end)
     end
     if cb then
         cb()
