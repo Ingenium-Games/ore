@@ -1525,7 +1525,7 @@ function c.sql.SaveJobs(cb)
     local xJobs = c.data.GetJobs()
     for k,v in pairs(xJobs) do
         -- Tables require JSON Encoding.
-        local Accounts = json.encode(xJobs[k].GetAccounts())
+        local Accounts = json.encode(xJobs[k].GetAccounts(false))
         -- 
         local Name = xJobs[k].GetName()
         MySQL.Async.insert(JobSaveData, {

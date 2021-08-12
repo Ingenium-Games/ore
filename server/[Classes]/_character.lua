@@ -111,10 +111,10 @@ function c.class.CreateCharacter(character_id)
     --
     self.SetAccount = function(acc, v)
         local num = c.check.Number(v)
-        for k, v in pairs(self.Accounts) do
-            if k == acc then
-                v = num
-            end
+        if self.Accounts[acc] then
+            self.Accounts[acc] = num
+        else
+            c.debug("Account entered does not exist")
         end
     end
     --
