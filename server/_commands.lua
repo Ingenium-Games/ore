@@ -36,7 +36,7 @@ end, true)
 
 RegisterCommand('ban', function(source, args, rawCommand)
     local src = tonumber(source)
-    if (args[1] == src) then
+    if (tonumber(args[1]) == src) then
         TriggerClientEvent("Client:Notify", src, 'You cannot /ban yourself.')
     else
         local Primary_ID = c.identifier(args[1])
@@ -52,7 +52,7 @@ end, true)
 
 RegisterCommand('kick', function(source, args, rawCommand)
     local src = tonumber(source)
-    if (args[1] == src) then
+    if (tonumber(args[1]) == src) then
         TriggerClientEvent("Client:Notify", src, 'You cannot /kick yourself.')
     else
         local xPlayer = c.data.GetPlayer(args[1])
