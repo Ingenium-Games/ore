@@ -281,7 +281,7 @@ function c.class.VehicleClass(networkid, owned, plate)
         self.AddFuel = function(num)
             local num = c.check.Number(num, 0, 100)
             self.Fuel = (self.Fuel + num)
-            self.SetState('Fuel', num)
+            self.SetState('Fuel', self.Fuel)
             if self.Fuel >= 100 then
             self.Fuel = 100
             self.SetState('Fuel', 100)
@@ -291,7 +291,7 @@ function c.class.VehicleClass(networkid, owned, plate)
         self.RemoveFuel = function(num)
             local num = c.check.Number(num, 0, 100)
             self.Fuel = (self.Fuel - num)
-            self.SetState('Fuel', num)
+            self.SetState('Fuel', self.Fuel)
             if self.Fuel <= 0 then
             self.Fuel = 0
             self.SetState('Fuel', 0)

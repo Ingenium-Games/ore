@@ -57,10 +57,3 @@ function c.TriggerClientCallback(src, eventName, ...)
 end
 
 -- ====================================================================================--
-
-c.RegisterServerCallback('Request:Create:VehicleClass', function(source, networkid, bool, plate)
-    local xCar = c.class.VehicleClass(networkid, bool, plate)
-        c.vehicle.SetVehicle(plate, xCar)
-    return true
-end)
-

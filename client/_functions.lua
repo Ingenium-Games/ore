@@ -29,10 +29,10 @@ end
 function c.error(err)
     if conf.error then
         if type(err) == 'string' then
-            print("   ^7[^3Error^7]:  " .. "==    ", err)
+            print("   ^7[^3Error^7]:  ==    ", err)
             print(debug.traceback(_, 2))
         else
-            print("   ^7[^3Error^7]:  " .. "==    ", 'Unable to type(err) == string. [err] = ', err)
+            print("   ^7[^3Error^7]:  ==    ", 'Unable to type(err) == string. [err] = ', err)
             print(debug.traceback(_, 2))
         end
     end
@@ -40,7 +40,7 @@ end
 
 function c.debug(str)
     if conf.debug then
-        print("   ^7[^6Debug^7]:  " .. "==    ", str)
+        print("   ^7[^6Debug^7]:  ==    ", str)
     end
 end
 
@@ -284,7 +284,7 @@ function c.GetClosestVehicle()
     local closestVeh = -1
     local ply = PlayerPedId()
     local plyCoords = GetEntityCoords(ply)
-    local vehicles = c.GetVehiclesInArea(plyCoords, 6.5)
+    local vehicles = c.GetVehiclesInArea(plyCoords, 20)
     for _, value in ipairs(vehicles) do
         local targetCoords = GetEntityCoords(GetPlayerPed(value))
         local distance = #(vector3(targetCoords["x"], targetCoords["y"], targetCoords["z"]) -
@@ -311,32 +311,7 @@ function c.GetVehicleInDirection()
 end
 
 
-function c.CreateVehicle(model,x,y,z,h)
-    local hash = (GetHashKey(model) or model)
-    --
-    if not IsModelInCdimage(hash) then 
-        c.debug("Model / Hash not found: ".. model .. " / " ..hash)
-        return 
-    end
-    --
-    RequestModel(hash)
-    while not HasModelLoaded(hash) do
-        Citizen.Wait(10)
-    end
-    Citizen.Wait(0)
-    --
-    local vehicle = CreateVehicle(hash, x, y, z, h, true, true)
-    local spawn = SetVehicleOnGroundProperly(vehicle)
-    --
-    SetEntityAsMissionEntity(vehicle, true, true)
-    NetworkEntity(vehicle)
-    --
-    local net = NetworkGetNetworkIdFromEntity(vehicle)
-    SetNetworkIdCanMigrate(net)
-    --
-    return vehicle, net, spawn
-end
-  
+--[[ Reviewing RPC State for best vehicle methods
 
 function c.SetVehicleModifications(vehicle, mods)
     SetVehicleModKit(vehicle, 0)
@@ -737,3 +712,4 @@ function c.SetVehicleCondition(vehicle, cons)
   end
 end
 
+]]--
