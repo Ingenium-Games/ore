@@ -52,7 +52,7 @@ function c.bank.CheckNegativeBalances()
             end
         end
     end
-    c.debug("Active clients notified of negative bank balances and Fees charged at $"..conf.bankoverdraw)
+    -- c.debug("Active clients notified of negative bank balances and Fees charged at $"..conf.bankoverdraw)
 end
 
 -- queued to add

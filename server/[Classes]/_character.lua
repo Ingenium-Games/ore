@@ -139,50 +139,47 @@ function c.class.CreateCharacter(character_id)
     --
     self.SetCash = function(v)
         local num = c.check.Number(v)
-            local acc = self.GetAccount("Cash")
-            if acc then
-                acc = c.math.Decimals(num, 0)
-                if acc < 0 then
-                    acc = 0
-                    c.debug("Player "..self.ID.." Kicked due to negative cash balance")
-                    CancelEvent()
-                    self.Kick("A bug has occoured to make your cash a negative amount, as you cannot have negative money in hand, please report this to the Server Admin")
-                else
-                    self.SetAccount("Cash", acc)
-                end    
-            end
+        local acc = self.GetAccount("Cash")
+        if acc then
+            acc = c.math.Decimals(num, 0)
+            if acc < 0 then
+                acc = 0
+                CancelEvent()
+                self.Kick("A bug has occoured to make your cash a negative amount, as you cannot have negative money in hand, please report this to the Server Admin")
+            else
+                self.SetAccount("Cash", acc)
+            end    
+        end
     end
     --
     self.AddCash = function(v)
         local num = c.check.Number(v)
         local acc = self.GetAccount("Cash")
-            if acc then
-                acc = acc + c.math.Decimals(num, 0)
-                if acc < 0 then
-                    acc = 0
-                    c.debug("Player "..self.ID.." Kicked due to negative cash balance")
-                    CancelEvent()
-                    self.Kick("A bug has occoured to make your cash a negative amount, as you cannot have negative money in hand, please report this to the Server Admin")
-                else
-                    self.SetAccount("Cash", acc)
-                end
+        if acc then
+            acc = acc + c.math.Decimals(num, 0)
+            if acc < 0 then
+                acc = 0
+                CancelEvent()
+                self.Kick("A bug has occoured to make your cash a negative amount, as you cannot have negative money in hand, please report this to the Server Admin")
+            else
+                self.SetAccount("Cash", acc)
             end
+        end
     end
     --
     self.RemoveCash = function(v)
         local num = c.check.Number(v)
-            local acc = self.GetAccount("Cash")
-            if acc then
-                acc = acc - c.math.Decimals(num, 0)
-                if acc < 0 then
-                    acc = 0
-                    c.debug("Player "..self.ID.." Kicked due to negative cash balance")
-                    CancelEvent()
-                    self.Kick("A bug has occoured to make your cash a negative amount, as you cannot have negative money in hand, please report this to the Server Admin")
-                else
-                    self.SetAccount("Cash", acc)
-                end
+        local acc = self.GetAccount("Cash")
+        if acc then
+            acc = acc - c.math.Decimals(num, 0)
+            if acc < 0 then
+                acc = 0
+                CancelEvent()
+                self.Kick("A bug has occoured to make your cash a negative amount, as you cannot have negative money in hand, please report this to the Server Admin")
+            else
+                self.SetAccount("Cash", acc)
             end
+        end
     end
     --
     self.GetBank = function()
@@ -198,7 +195,6 @@ function c.class.CreateCharacter(character_id)
         if acc then 
             if acc < 0 then
                 self.SetAccount("Bank", acc)
-                TriggerClientEvent("Client:Notify", self.ID, "Your bank account is in a negative balance.", "error")
             else
                 self.SetAccount("Bank", acc)
             end
@@ -212,7 +208,6 @@ function c.class.CreateCharacter(character_id)
             acc = acc + c.math.Decimals(num, 0)
             if acc < 0 then
                 self.SetAccount("Bank", acc)
-                TriggerClientEvent("Client:Notify", self.ID, "Your bank account is in a negative balance.", "error")
             else
                 self.SetAccount("Bank", acc)
             end
@@ -226,7 +221,6 @@ function c.class.CreateCharacter(character_id)
                 acc = acc - c.math.Decimals(num, 0)
             if acc < 0 then
                 self.SetAccount("Bank", acc)
-                TriggerClientEvent("Client:Notify", self.ID, "Your bank account is in a negative balance.", "error")
             else
                 self.SetAccount("Bank", acc)
             end
