@@ -18,14 +18,11 @@ function c.class.CreateCharacter(character_id)
     -- Strings
     self.Character_ID = data.Character_ID -- 50 Random Characters [Aa-Zz][0-9]
     self.City_ID = data.City_ID -- X-00000
-
     self.Birth_Date = data.Birth_Date
     self.First_Name = data.First_Name
     self.Last_Name = data.Last_Name
     self.Full_Name = data.First_Name .. " " .. data.Last_Name
-
     self.Phone = data.Phone -- 200000 - 699999
-    
     -- Integers
     self.Instance = data.Instance
     self.Health = data.Health
@@ -33,11 +30,9 @@ function c.class.CreateCharacter(character_id)
     self.Hunger = data.Hunger
     self.Thirst = data.Thirst
     self.Stress = data.Stress
-
     -- Booleans
     self.Wanted = data.Wanted
     self.Supporter = data.Supporter
-    
     -- Tables (JSONIZE)
     self.Job = json.decode(data.Job)
     self.Coords = json.decode(data.Coords)
@@ -46,7 +41,6 @@ function c.class.CreateCharacter(character_id)
     self.Inventory = json.decode(data.Inventory)
     self.Modifiers = json.decode(data.Modifiers)    
     self.Appearance = json.decode(data.Appearance)
-    
     ---- FUNCTIONS
     -- This one is to check if they are a VIP/Supporter of the server, ie tebex linked.
     self.IsSupporter = function()
@@ -358,6 +352,9 @@ function c.class.CreateCharacter(character_id)
         local b = c.check.Boolean(b)
         self.Wanted = b
     end
+    --
+
+
     --
     c.debug("End Character Class Creation")
     return self

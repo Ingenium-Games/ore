@@ -73,6 +73,9 @@ function c.class.CreateUser(req)
         return self.IP_Address
     end
     --
+    
+
+    --
     c.debug('End User Class Creation')
     return self
 end
