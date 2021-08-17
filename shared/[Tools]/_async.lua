@@ -1,3 +1,5 @@
+-- Imported from original esx, to credit later.
+
 if Citizen and Citizen.CreateThread then
 	CreateThread = Citizen.CreateThread
 end

@@ -111,7 +111,7 @@ function OnNotify(data){
     };
 
     $('#Notify-Window').prepend(element);
-    $(element).text(text);
+    $(element).text(text); // I really want to use .innerText() as it will translate the '/n' to new line... Still working on it.
     $(element).fadeIn(750);
 
     setTimeout(function(){
