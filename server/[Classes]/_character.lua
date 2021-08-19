@@ -353,45 +353,38 @@ function c.class.CreateCharacter(character_id)
         self.Wanted = b
     end
     --
-    self.AddItem = function(t)
-        -- label, quality, quantity, slot, weapon, meta, data 
-        if c.item.Exists(t.Label) then
-            -- this is the information to send to user, so best to keep it as the info that is saved.
-            if t.Label and t.Quality and t.Quantity and t.Slot and t.Weapon and t.Meta and T.Data then 
-                table.insert(self.Inventory, t)
+    self.AddItem = function(name, qty)
+        if c.item.Exists(name) then
+            if not self.Inventory[name] then
+                table.insert(self.Inventory, name)
+                self.Inventory[name] = qty
+            else
+                self.Inventory[name] = self.Inventory[name] + qty
             end
         end
     end
     --
-    self.RemoveItem = function(name)
+    self.RemoveItem = function(name, qty)
         if self.HasItem(name) then
             for k,v in pairs(self.Inventory) do
-                if v.Label == name then
-                    table.remove(self.Inventory, v)
+                if k == name then
+                    table.remove(self.Inventory, k)
                 end
             end
         end
     end
     --
-    self.CraftItem = function()
-        
-    end
-    --
     self.HasItem = function(name)
         for k,v in pairs(self.Inventory) do
-            if v.Label == name then
+            if k == name then
                 return true
             end
         end
         return false
     end
     --
-    self.ItemWeight = function() -- Dont force the limit, just when one passes a weight it startes impacting player speed. See Client _Status.lua for example natives to use.
-
-    end
-    --
-    self.ItemDegrade = function()
-
+    self.CraftItem = function()
+        
     end
     --
     c.debug("End Character Class Creation")
