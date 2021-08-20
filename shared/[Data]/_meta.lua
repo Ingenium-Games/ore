@@ -11,7 +11,6 @@ c.meta = {
     __index = self,
     __newindex = function() print("Locked") end,
     __metatable = function() print("Locked") end,
-
 }
 
 --[[
