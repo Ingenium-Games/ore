@@ -223,7 +223,7 @@ function c.data.ServerSync()
         end)
         Citizen.Wait(350)
         c.debug('[F] ServerSync()')
-        c.data.Save(" Users, Vehicles, Jobs, ")
+        c.data.Save("Users, Vehicles, Jobs, ")
         SetTimeout(conf.serversync, Do)
     end
     SetTimeout(conf.serversync, Do)
