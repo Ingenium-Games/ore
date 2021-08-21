@@ -16,11 +16,11 @@ AddEventHandler('onResourceStart', function(resourceName)
         return
     end
     --
-    OnStart()
+    OnStart(resourceName)
     --
 end)
 -- ====================================================================================--
-local function OnStart()
+function OnStart(resourceName)
     c.data.Initilize()
     --
     while c.Loading do
@@ -37,7 +37,7 @@ local function OnStart()
     --
 
     -- AT THE END
-    c.version.Check(conf.url.version)
+    c.version.Check(conf.url.version, resourceName)
 end
 -- ====================================================================================--
 RegisterNetEvent('Server:PlayerConnecting')
