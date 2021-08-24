@@ -36,7 +36,7 @@ Please make sure you have had a read of how to setup a server from the [FiveM Do
 But the basics are:
 - [Reading the FiveM Docs on how to Setup a Server,](https://docs.fivem.net/docs/server-manual/setting-up-a-server/)
 - [Installing and using a SQL Server (MariaDB, MySQL),](https://mariadb.org/)
-- Upload the db.sql to your server,
+- import the db.sql to your sql server,
 - Check your server.cfg is setup and like the example,
 - Have Fun!
 
@@ -96,6 +96,7 @@ end
 ```
 
 <br>
+<br>
 
 ### For SQL
 
@@ -127,34 +128,34 @@ end)
 >##### Note: *If you see anyone doing the above, it can probably be exploited in a way to ruin your database.* __*Always pass parameters correctly*__
 
 <br>
+<br>
 
 ### For JS
 
 <br>
 
+- Variables = lowercase
 ```js
 let variable = 42
 ```
 
-
+- Functions = UpperCamelCase
 ```js
 function SameSameA() {};
 ```
 
-
+- Add notes where possible and define paramaters
 ```js
 // function descriptions
 // @param var type "Context"
 function SameSameB(var) {
-  If (var != "xyz") {
+  if (var != "xyz") {
     console.log("var is not xyz")
   };
 };
 ```
 
-
->I need to figure out my style..
-
+<br>
 <br>
 
 ### For Front End (HTML,CSS,etc)
