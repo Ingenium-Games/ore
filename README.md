@@ -1,11 +1,15 @@
-# Putting the c.ore in FiveM : Resource [ORE] c = exports.c:ore() 
+# ig.core
 
-Please use the [ORE] in the title on the FiveM Forums if posting resources made with this core and use the tag "ore"
+This is the core resource used on the Ingenium Games FiveM Server.
+
+It is advised that you do not change the name of this resource. *It's just polite.*
 
 <br>
 
 >##### Note: As with all source code on the internet, please review prior to blindly using...
 
+<br>
+<br>
 <br>
 <br>
 
@@ -90,6 +94,7 @@ function TestingFunction() end
 --@param var string "Context around it"
 function TestingFunction(var) 
     if type(var) == "string" then
+      -- the type of var is string
       print("IS STRING")
     end
 end
@@ -119,7 +124,6 @@ end)
 ```lua
 local data = "Cool Story Bro"
 MySQL.Async.execute("INSERT `table` .... `Column1` = "..data..";",{
-
 },function(r) 
     -- do
 end)
@@ -150,6 +154,7 @@ function SameSameA() {};
 // @param var type "Context"
 function SameSameB(var) {
   if (var != "xyz") {
+    // The passed var variable is not equal to xyz
     console.log("var is not xyz")
   };
 };
@@ -162,16 +167,16 @@ function SameSameB(var) {
 
 <br>
 
+- ??? You guys do you, just make it understandable.
+
 >I need to figure out my style..
 
 <br>
-
 <br>
 
 
 
 <br>
-
 <br>
 
 >Note: *It has currently been tested and working on the following server operating systems with no issues present. __As you would hopefully expect!__*
