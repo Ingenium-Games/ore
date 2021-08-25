@@ -5,7 +5,7 @@ author "Twiitchter"
 description 'c = exports["ig.core"]:c()'
 version "0.6.3"
 ------------------------------------------------------------------------------
-ui_page "nui/ore.html"
+ui_page "nui/ig.core.html"
 loadscreen "https://www.ingenium.games/"
 ------------------------------------------------------------------------------
 -- shared
@@ -27,7 +27,7 @@ server_exports {"c"}
 dependencies {"mysql-async", "discordroles"}
 ------------------------------------------------------------------------------
 -- files
-files {"nui/ore.js", "nui/ore.css", "nui/ore.html", "nui/img/*.png", "nui/img/*.jpg", "nui/jquery-3.5.1.min.js",
+files {"nui/ig.core.js", "nui/ig.core.css", "nui/ig.core.html", "nui/img/*.png", "nui/img/*.jpg", "nui/jquery-3.5.1.min.js",
        "nui/jquery.mask.min.js", "nui/jquery.validate.min.js"}
 
 data {"data/Jobs.json", "data/Drops.json", "data/GSR.json", "data/Items.json", "data/Notes.json", "data/Pickups.json"}
