@@ -48,6 +48,11 @@ function c.data.GetLoadedStatus()
     return c.CharacterLoaded
 end
 
+--- Returns if the client has finished loading. Boolean
+function c.data.IsPlayerLoaded()
+    return c.CharacterLoaded
+end
+
 --- Sets the data to the local table on the client side.
 ---@param t table "Contains the table of data provided by the server to clinet on character selection."
 function c.data.SetPlayer(t)

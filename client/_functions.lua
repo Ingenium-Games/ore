@@ -89,24 +89,35 @@ end
 -- @entity - the object
 -- @arrays - locations in a table format
 -- @style - c.SelectMarker() - Pick Marker type.
-function c.IsNear(coords, arrays, style)
+function c.CompareCoords(coords, arrays, style)
     local dstchecked = 1000
     local pos = coords
-	  for i = 1, #arrays do
-		    local ords = arrays[i]
-		    local comparedst = Vdist(pos - ords)
-		    if comparedst < dstchecked then
-			      dstchecked = comparedst
-		    end
-		        if comparedst < 10.0 then
+    if type(arrays) == "table" then
+        for i = 1, #arrays do
+            local ords = arrays[i]
+            local comparedst = Vdist(pos - ords)
+            if comparedst < dstchecked then
+                dstchecked = comparedst
+            end
+            if comparedst < 7.5 then
                 if style then
                     c.marker.SelectMarker(style, ords)
-                else
-                    c.marker.SelectMarker(1, ords)
                 end
             end
-	      end
-	  return dstchecked
+        end
+        return dstchecked
+    else
+        local comparedst = Vdist(pos - arrays)
+        if comparedst < dstchecked then
+            dstchecked = comparedst
+        end
+        if comparedst < 7.5 then
+            if style then
+                c.marker.SelectMarker(style, arrays)
+            end
+        end
+        return dstchecked
+    end
 end
 
 --- Returns Players within the designated radius.

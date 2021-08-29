@@ -17,6 +17,7 @@ math.randomseed(c.Seed)
 ---@param v number "A number to select corresponding local array value."
 ---@param ords table "a vector3() or {x,y,z}"
 function c.marker.SelectMarker(v, ords)
+    if not v then v = 1 end
     if type(ords) ~= vector3 then
         local ords = {
             [1] = ords.x,
@@ -26,32 +27,32 @@ function c.marker.SelectMarker(v, ords)
     end
     if v == 1 then
         -- Blue Static Circle.
-        DrawMarker(27, ords[1], ords[2], ords[3], 0, 0, 0, 0, 0, 0, 1.0001, 1.0001, 1.7001, 0, 55, 240, 35, 0, 0, 2, 0)
+        DrawMarker(27, ords[1], ords[2], ords[3]-0.45, 0, 0, 0, 0, 0, 0, 1.0001, 1.0001, 1.7001, 0, 55, 240, 35, 0, 0, 2, 0)
     elseif v == 2 then
         -- Blue Static $.
-        DrawMarker(29, ords[1], ords[2], ords[3], 0, 0, 0, 0, 0, 0, 0.7001, 1.0001, 0.3001, 0, 55, 240, 35, 0, 0, 2, 0)
+        DrawMarker(29, ords[1], ords[2], ords[3]-0.45, 0, 0, 0, 0, 0, 0, 0.7001, 1.0001, 0.3001, 0, 55, 240, 35, 0, 0, 2, 0)
     elseif v == 3 then
         -- Blue Static ?.
-        DrawMarker(32, ords[1], ords[2], ords[3], 0, 0, 0, 0, 0, 0, 0.7001, 1.0001, 0.3001, 0, 55, 240, 35, 0, 0, 2, 0)
+        DrawMarker(32, ords[1], ords[2], ords[3]-0.45, 0, 0, 0, 0, 0, 0, 0.7001, 1.0001, 0.3001, 0, 55, 240, 35, 0, 0, 2, 0)
     elseif v == 4 then
         -- Blue Static Chevron.
-        DrawMarker(20, ords[1], ords[2], ords[3], 0, 0, 0, 0, 0, 0, 0.7001, 1.0001, 0.3001, 0, 55, 240, 35, 0, 0, 2, 0)
+        DrawMarker(20, ords[1], ords[2], ords[3]-0.45, 0, 0, 0, 0, 0, 0, 0.7001, 1.0001, 0.3001, 0, 55, 240, 35, 0, 0, 2, 0)
     elseif v == 5 then
         -- Small White Rotating Circle + Bouncing ? (on Ground)
         DrawMarker(27, ords[1], ords[2], ords[3] - 0.45, 0, 0, 0, 0, 0, 0, 0.4001, 0.4001, 0.4001, 240, 240, 240, 35, 0,
             0, 2, 1)
-        DrawMarker(32, ords[1], ords[2], ords[3], 0, 0, 0, 0, 0, 0, 0.7001, 1.0001, 0.3001, 240, 240, 240, 35, 1, 0, 2,
+        DrawMarker(32, ords[1], ords[2], ords[3] - 0.32, 0, 0, 0, 0, 0, 0, 0.7001, 1.0001, 0.3001, 240, 240, 240, 35, 1, 0, 2,
           1)
     elseif v == 6 then
         DrawMarker(32, ords[1], ords[2], ords[3] - 0.45, 0, 0, 0, 0, 0, 0, 0.2001, 0.4001, 0.8001, 240, 240, 240, 35, 1,
             1, 2, 0)
     elseif v == 7 then
         -- White Rotating Chevron Bouncing.
-        DrawMarker(29, ords[1], ords[2], ords[3], 0, 0, 0, 0, 0, 0, 0.7001, 1.0001, 0.3001, 240, 240, 240, 35, 1, 0, 2,
+        DrawMarker(29, ords[1], ords[2], ords[3] - 0.45, 0, 0, 0, 0, 0, 0, 0.7001, 1.0001, 0.3001, 240, 240, 240, 35, 1, 0, 2,
             1)
     elseif v == 8 then
         -- Blue Static $.
-        DrawMarker(29, ords[1], ords[2], ords[3], 0, 0, 0, 0, 0, 0, 1.001, 1.0001, 1.7001, 0, 55, 240, 35, 0, 0, 2, 0)
+        DrawMarker(29, ords[1], ords[2], ords[3] - 0.45, 0, 0, 0, 0, 0, 0, 1.001, 1.0001, 1.7001, 0, 55, 240, 35, 0, 0, 2, 0)
     end
 end
 
