@@ -157,9 +157,18 @@ c.items = { -- table of items
 
 }
 
--- if server
+
+-- ====================================================================================--
+-- If this is the server,,,
+-- Wait until the resources are hopefully finished loading by reading the console output fot the cfx.re tebex line.
+-- We may have to make a final resource to jerry rig this if not the case.
 if IsDuplicityVersion() then
-    c.json.Write(conf.file.items, c.items)
+    RegisterConsoleListener(function(channel, string)
+        if string == "Monetize your server using Tebex! Visit https://tebex.io/fivem for more info." then
+            c.json.Write(conf.file.items, c.items)
+            setmetatable(c.items, c.meta)
+            c.debug("Item's table locked")        
+        end
+    end)
 end
 -- ====================================================================================--
-setmetatable(c.items, c.meta)

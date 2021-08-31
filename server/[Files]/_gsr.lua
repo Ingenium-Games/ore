@@ -2,7 +2,7 @@
 --  MIT License 2020 : Twiitchter
 -- ====================================================================================--
 c.gsr = {} -- function level
-c.gsrs = false -- dropped items table
+c.gsrs = {} -- dropped items table
 --[[
 NOTES.
     -
@@ -27,8 +27,7 @@ math.randomseed(c.Seed)
     
 function c.gsr.Load()
     if c.json.Exists(conf.file.gsr) then
-        local file = c.json.Read(conf.file.gsr)
-        c.gsrs = file
+        c.gsrs = c.json.Read(conf.file.gsr)
     else
         c.gsrs = {}
         c.json.Write(conf.file.gsr, c.gsrs)
