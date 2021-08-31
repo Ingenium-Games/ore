@@ -1,0 +1,97 @@
+-- ====================================================================================--
+--  MIT License 2020 : Twiitchter
+-- ====================================================================================--
+c.state = {} -- functions
+c.states = {} -- table of potential states to become etc.
+--[[
+NOTES:
+    -
+    -
+    -
+]] --
+math.randomseed(c.Seed)
+-- ====================================================================================--
+
+---- Add States to the Table prior to being locked on server boot.
+---@param name string "The name of the state like 'Hungry'"
+---@param description string "You feel your stomach ache a little."
+---@param value number "You feel your stomach ache a little."
+---@param effect function "Any change to the screen on the users end"
+---@param action function "Any change to the screen on the users end"
+function c.state.AddState(name, description, value, effects, actions)
+    if not c.states[name] then
+        table.insert(c.states, name)
+        value = {["description"] = description, ["effect"] = effects or nil, ["action"] = actions or nil}
+        c.states[name] = value
+    else
+        c.debug("State already exists, adding or overwriting pre existing state: "..name)
+        value = {["description"] = description, ["effect"] = effects or nil, ["action"] = actions or nil}
+        c.states[name] = value
+    end
+end
+
+function c.state.ChangeAction(name, value, cb)
+    if not cb then cb = function() end end
+    if c.states[name][value] then
+        c.states[name][value]["action"] = cb()
+    else
+        c.debug("The states action: "..name.." does not exist, please add state prior to action.")
+    end
+end
+
+function c.state.ChangeEffect(name, value, cb)
+    if not cb then cb = function() end end
+    if c.states[name][value] then
+        c.states[name][value]["effect"] = cb()
+    else
+        c.debug("The states effect: "..name.." does not exist, please add state prior to effect.")
+    end
+end
+
+---- To action based on the key and value of various modifiers or other tasks.
+---@param name string "The name of the State"
+---@param value number "The number of the State containing values"
+function c.state.TriggerState(name, value)
+    c.state.TriggerEvent(name,value)
+    c.state.TriggerAction(name,value)
+end
+
+function c.state.TriggerEvent(name,value)
+    c.states[name][value].event()
+end
+
+function c.state.TriggerAction(name,value)
+    c.states[name][value].action()
+end
+
+function c.state.UpdateStates(source)
+    local xPlayer = c.data.GetPlayer()
+    local mods = xPlayer.GetModifiers()    
+    local oldmods = xPlayer.GetOldModifiers()
+
+    for k,v in pairs(mods) do
+        if mods[k].v ~= oldmods[k].v then
+            c.state.TriggerState(k, v)
+        end
+    end
+
+    --[[
+        Add any other loops you might want for state triggers here,
+        Currently only the Thirst, Hunger and Stress Modifers will Imapct
+        The user based on these states, the states will provide a message to the user,
+        And Trigger their side, be it vision, recoil, speed or other factors and impact the fuck out of them.
+    ]]--
+
+
+
+end
+
+--[[
+    Example of adding states for all 9 levels of hunger and thirst.
+]]--
+
+local H = {[1] = {"Is that a cookie?"}, [2] = {"Feeling peckish"}, [3] = {"Could go a snack"},[4] = {"Feeling slightly hungry"}, [5] = {"I missed lunch.."}, [6] = {"Getting really hungry"}, [7] = {"Famished"}, [8] = {"Starving"}, [9] = {"Are you food?"}, [10] = {"Malnurished"}}
+
+local T = {[1] = {""}, [2] = {""}, [3] = {""},[4] = {""}, [5] = {""}, [6] = {""},[7] = {""}, [8] = {""}, [9] = {""}, [10] = {""}}
+
+local S = {[1] = {""}, [2] = {""}, [3] = {""},[4] = {""}, [5] = {""}, [6] = {""},[7] = {""}, [8] = {""}, [9] = {""}, [10] = {""}}

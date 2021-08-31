@@ -87,10 +87,14 @@ AddEventHandler('Server:Packet:Update', function(data)
     xPlayer.SetHunger(data.Hunger)
     xPlayer.SetThirst(data.Thirst)
     xPlayer.SetStress(data.Stress)
-    -- Status Modifiers
+    -- Status Modifiers the old modifers are retained after every sync
     xPlayer.SetModifiers(data.Modifiers)
     -- Coords
     xPlayer.SetCoords(data.Coords)    
+    -- Run the following functions after update has been receieved.
+    -- Update triggers and events based on old vs new modifiers per user sync times etc.
+
+    c.state.UpdateStates(src)
 end)
 
 -- ====================================================================================--

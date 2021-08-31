@@ -41,6 +41,9 @@ function c.class.CreateCharacter(character_id)
     self.Inventory = json.decode(data.Inventory)
     self.Modifiers = json.decode(data.Modifiers)    
     self.Appearance = json.decode(data.Appearance)
+
+    --
+    self.OldModifiers = self.Modifiers
     ---- FUNCTIONS
     -- This one is to check if they are a VIP/Supporter of the server, ie tebex linked.
     self.IsSupporter = function()
@@ -313,12 +316,17 @@ function c.class.CreateCharacter(character_id)
         self.Stress = num
     end
     --
+    self.GetOldModifiers = function()
+        return self.OldModifiers
+    end
+    --
     self.GetModifiers = function()
         return self.Modifiers
     end
     --
     self.SetModifiers = function(t)
         local tab = c.check.Table(t)
+        self.OldModifiers = self.Modifiers
         self.Modifiers = tab
     end
     --
