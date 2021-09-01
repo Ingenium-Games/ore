@@ -174,7 +174,7 @@ end
 -- ====================================================================================--
 
 RegisterConsoleListener(function(channel, string)
-    if channel ~= nil then
-        print(channel)
+    if string == nil then
+        print(string)
     end
 end)
