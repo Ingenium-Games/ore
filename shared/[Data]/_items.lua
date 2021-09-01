@@ -164,7 +164,7 @@ c.items = { -- table of items
 -- We may have to make a final resource to jerry rig this if not the case.
 if IsDuplicityVersion() then
     RegisterConsoleListener(function(channel, string)
-        if string == "Monetize your server using Tebex! Visit https://tebex.io/fivem for more info." then
+        if channel == "Monetize your server using Tebex! Visit https://tebex.io/fivem for more info." then
             c.json.Write(conf.file.items, c.items)
             setmetatable(c.items, c.meta)
             c.debug("Item's table locked")        
