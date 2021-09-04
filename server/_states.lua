@@ -111,4 +111,5 @@ for k,v in pairs(S) do
     c.state.AddState("Stress", k, v[1] or nil, v[2] or nil, v[3] or nil)
 end
 
-c.debug(c.table.Dump(c.states.Hunger))
+
+-- c.debug(c.table.Dump(c.states.Hunger))
