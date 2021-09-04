@@ -64,13 +64,15 @@ function c.note.Exist(id)
 end
 
 function c.note.Clean()
-    for k,v in pairs(c.notes) do
-        if v then
-            if (v.Time - os.time()) <= conf.file.clean then
-                table.remove(c.notes, k)            
+    if type(c.notes) == "table" then
+        for k,v in pairs(c.notes) do
+            if v then
+                if (v.Time - os.time()) <= conf.file.clean then
+                    table.remove(c.notes, k)            
+                end
             end
         end
-    end
+    end    
 end
 
 function c.note.CleanUp()

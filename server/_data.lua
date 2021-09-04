@@ -64,10 +64,10 @@ function c.data.Initilize()
     -- print(c.table.Dump(c.jobs))
     
     -- this is to test the table locker function.
-    conf.temp = c.rng.chars(10)  
+    conf.lock = c.rng.chars(10)  
     SetTimeout(c.min, function()
         c.debug("locking tables...")
-        print(conf.temp)
+        print(conf.lock.."\n")
     end)
     --
 end

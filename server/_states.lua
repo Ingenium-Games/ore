@@ -24,7 +24,6 @@ function c.state.AddState(name, value, description, effects, actions)
         value = {["description"] = description, ["effect"] = effects or nil, ["action"] = actions or nil}
         c.states[name] = value
     else
-        c.debug("State already exists, adding or overwriting pre existing state: "..name)
         value = {["description"] = description, ["effect"] = effects or nil, ["action"] = actions or nil}
         c.states[name] = value
     end
@@ -113,3 +112,4 @@ for k,v in pairs(S) do
     c.state.AddState("Stress", k, v[1] or nil, v[2] or nil, v[3] or nil)
 end
 
+c.debug(c.table.Dump(c.states.Hunger))

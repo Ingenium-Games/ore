@@ -64,8 +64,8 @@ function c.gsr.Exist(id)
 end
 
 function c.gsr.Clean()
-    for k,v in pairs(c.gsrs) do
-        if v then
+    if type(c.gsr) == "table" then
+        for k,v in pairs(c.gsrs) do
             if (v.Time - os.time()) <= conf.file.clean then
                 table.remove(c.gsrs, k)            
             end

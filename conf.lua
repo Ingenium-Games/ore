@@ -123,4 +123,4 @@ conf.url.version = "https://raw.githubusercontent.com/Ingenium-Games/ig.core/mai
 
 
 conf.consolechannel = "script:"..tostring(GetCurrentResourceName())
-conf.temp = nil
+conf.lock = nil
