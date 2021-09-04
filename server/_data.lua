@@ -65,10 +65,11 @@ function c.data.Initilize()
     
     -- this is to test the table locker function.
     conf.temp = c.rng.chars(10)  
-
     SetTimeout(c.min, function()
+        c.debug("locking tables...")
         print(conf.temp)
     end)
+    --
 end
 -- ====================================================================================--
 
@@ -221,17 +222,16 @@ function c.data.ServerSync()
         c.sql.SaveUsers(function() 
             -- do 
         end)
-        Citizen.Wait(conf.sec)
+        Citizen.Wait(conf.sec * 5)
         c.sql.SaveVehicles(function() 
             -- do 
         end)
-        Citizen.Wait(conf.sec)
+        Citizen.Wait(conf.sec * 5)
         c.sql.SaveJobs(function() 
             -- do 
         end)
-        Citizen.Wait(conf.sec)
+        Citizen.Wait(conf.sec * 5)
         --
-        c.debug('[F] ServerSync()')
         c.data.Save("Users, Vehicles, Jobs, ")
         SetTimeout(conf.serversync, Do)
     end

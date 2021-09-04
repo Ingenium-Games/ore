@@ -83,7 +83,6 @@ end
 -- ====================================================================================--
 
 c.RegisterServerCallback("GetCurrentJobs", function(...) 
-    local jobs = c.job.ActiveMembers()
-    return jobs
+    return c.job.ActiveMembers()
 end)
 

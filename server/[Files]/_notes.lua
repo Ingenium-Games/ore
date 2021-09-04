@@ -65,8 +65,10 @@ end
 
 function c.note.Clean()
     for k,v in pairs(c.notes) do
-        if (v.Time - os.time()) <= conf.file.clean then
-            table.remove(c.notes, k)            
+        if v then
+            if (v.Time - os.time()) <= conf.file.clean then
+                table.remove(c.notes, k)            
+            end
         end
     end
 end

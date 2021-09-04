@@ -65,8 +65,10 @@ end
 
 function c.gsr.Clean()
     for k,v in pairs(c.gsrs) do
-        if (v.Time - os.time()) <= conf.file.clean then
-            table.remove(c.gsrs, k)            
+        if v then
+            if (v.Time - os.time()) <= conf.file.clean then
+                table.remove(c.gsrs, k)            
+            end
         end
     end
 end

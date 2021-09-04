@@ -67,8 +67,10 @@ end
 
 function c.drop.Clean()
     for k,v in pairs(c.drops) do
-        if (v.Time - os.time()) <= conf.file.clean then
-            table.remove(c.drops, k)            
+        if v then        
+            if (v.Time - os.time()) <= conf.file.clean then
+                table.remove(c.drops, k)            
+            end
         end
     end
 end

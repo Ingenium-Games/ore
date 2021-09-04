@@ -65,8 +65,10 @@ end
 
 function c.pick.Clean()
     for k,v in pairs(c.picks) do
-        if (v.Time - os.time()) <= conf.file.clean then
-            table.remove(c.picks, k)            
+        if v then        
+            if (v.Time - os.time()) <= conf.file.clean then
+                table.remove(c.picks, k)            
+            end
         end
     end
 end
