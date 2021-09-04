@@ -101,15 +101,15 @@ local T = {[1] = {"",function() print('this is a effect') end, function() print(
 local S = {[1] = {""}, [2] = {""}, [3] = {""},[4] = {""}, [5] = {""}, [6] = {""},[7] = {""}, [8] = {""}, [9] = {""}, [10] = {""}}
 
 for k,v in pairs(H) do
-    c.state.AddState("Hunger", k, v[1] or nil, v[2] or nil, v[3] or nil)
+    c.state.AddState("Hunger", v, v[1] or nil, v[2] or nil, v[3] or nil)
 end
 
 for k,v in pairs(T) do
-    c.state.AddState("Thirst", k, v[1] or nil, v[2] or nil, v[3] or nil)
+    c.state.AddState("Thirst", v, v[1] or nil, v[2] or nil, v[3] or nil)
 end
 
 for k,v in pairs(S) do
-    c.state.AddState("Stress", k, v[1] or nil, v[2] or nil, v[3] or nil)
+    c.state.AddState("Stress", v, v[1] or nil, v[2] or nil, v[3] or nil)
 end
 
 c.debug(c.table.Dump(c.states.Hunger))
