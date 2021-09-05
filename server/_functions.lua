@@ -110,6 +110,7 @@ function c.GetState(entity)
     return Entity(entity).state
 end
 
+-- Seems like the shits broken again...
 function c.CreateVehicle(name, x, y, z, h)
     local hash = nil
     if type(name) == "number" then
