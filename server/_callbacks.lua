@@ -87,7 +87,7 @@ c.RegisterServerCallback("GetCurrentJobs", function(source, ...)
     return c.job.ActiveMembers()
 end)
 
-c.RegisterServerCallback("Create:Vehicle", function(source, ...)
+c.RegisterServerCallback("Create:Vehicle", function(source, name, coords)
     local src = tonumber(source)
     local name, coords = table.unpack(...)
     local vehicle = c.CreateVehicle(name, coords.x, coords.y, coords.z, coords.h)
