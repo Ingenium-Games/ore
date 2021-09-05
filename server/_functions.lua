@@ -117,8 +117,10 @@ function c.CreateVehicle(name, coords)
     else
         hash = GetHashKey(name)
     end
-    local veh = CreateVehicle(hash, coords, true, true)
-    local id = NetworkGetNetworkIdFromEntity(veh)
+    local vehicle = CreateVehicle(hash, coords, true, true)
+    local id = NetworkGetNetworkIdFromEntity(vehicle)
+    --
+    return vehicle, id
 end
 
 function c.CreatePed()

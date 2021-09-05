@@ -80,6 +80,8 @@ end, true)
 
 RegisterCommand('car', function(source, args, rawCommand)
     local src = tonumber(source)
-    local retval = CreateVehicle(modelHash, x, y, z, heading, isNetwork, netMissionEntity)
-
+    local coords = GetEntityCoords(src)
+    local ords = vector4(coords, GetEntityHeading(src))
+    local retval, id = c.CreateVehicle(args[1], ords)
+    TriggerClientEvent("Client:Notify", src, 'Spawned: '..retval..', NetID: '..id)
 end, true)
