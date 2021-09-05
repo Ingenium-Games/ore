@@ -73,7 +73,7 @@ function c.state.UpdateStates(source)
     local oldmods = xPlayer.GetOldModifiers()
 
     for k,v in pairs(mods) do
-        if mods[k].v ~= oldmods[k].v then
+        if mods.v ~= oldmods.v then
             c.state.TriggerState(k, v)
         end
     end

@@ -117,7 +117,7 @@ function c.CreateVehicle(name, x, y, z, h)
     else
         hash = GetHashKey(name)
     end
-    local vehicle = CreateVehicle(hash, x, y, z, h, true, true)
+    local vehicle = CreateVehicle(hash, x, y, z, h, true, false)
     local id = NetworkGetNetworkIdFromEntity(vehicle)
     --
     return vehicle, id
