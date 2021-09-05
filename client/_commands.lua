@@ -66,5 +66,5 @@ RegisterCommand('car', function(source, args, rawCommand)
     local pos = GetEntityCoords(PlayerPedId())
     local heading = GetEntityHeading(PlayerPedId())
     local coords = {x = pos.x, y = pos.y, z = pos.z, h = heading}
-    local vehicle = TriggerServerCallback("Create:Vehicle", args[1], coords)
+    local vehicle = c.TriggerServerCallback("Create:Vehicle", args[1], coords)
 end, false)
