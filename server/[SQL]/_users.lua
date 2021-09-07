@@ -37,7 +37,7 @@ function c.sql.AddUser(usermame, license_id, fivem_id, steam_id, discord_id, ip,
     local Discord_ID = discord_id
     local IP_Address = ip
     local IsBusy = true
-    MySQL.Async.execute('INSERT INTO `users` (`Username`, `Steam_ID`, `License_ID`, `FiveM_ID`, `Discord_ID`, `Ace`, `Locale`, `Ban`, `IP_Address`) VALUES (@Username, @Steam_ID, @License_ID, @FiveM_ID, @Discord_ID, @Ace, @Locale, @Ban, @IP_Address);',{
+    MySQL.Async.execute('INSERT INTO `users` (`Username`, `Steam_ID`, `License_ID`, `FiveM_ID`, `Discord_ID`, `Ace`, `Locale`, `IP_Address`) VALUES (@Username, @Steam_ID, @License_ID, @FiveM_ID, @Discord_ID, @Ace, @Locale, @IP_Address);',{
         ["@Username"] = Username,
         ["@License_ID"] = License_ID,
         ["@FiveM_ID"] = FiveM_ID,
