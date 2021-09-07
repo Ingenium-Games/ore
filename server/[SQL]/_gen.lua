@@ -7,9 +7,6 @@ c.sql.gen = {}
 --[[
 NOTES
 
-    THIS TABLE HAS BEEN MOVED TO [SQL] TO MAKE IT EAISER TO FIND AND USE FUNCTIONS,
-    BECAUSE I GAVE UP PAST 1500 LINES. YEET
-
 ]] --
 math.randomseed(c.Seed)
 -- ====================================================================================--
