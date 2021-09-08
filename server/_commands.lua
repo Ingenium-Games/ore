@@ -18,6 +18,7 @@ end, false)
 -- ====================================================================================--
 
 RegisterCommand('switch', function(source, args, rawCommand)
+    TriggerEvent('txaLogger:CommandExecuted', rawCommand) -- txAdmin logging Callback
     local src = source
     local Primary_ID = c.identifier(src)
     local Character_ID = c.sql.GetActiveCharacter(Primary_ID)
@@ -35,6 +36,7 @@ end, true)
 -- ====================================================================================--
 
 RegisterCommand('ban', function(source, args, rawCommand)
+    TriggerEvent('txaLogger:CommandExecuted', rawCommand) -- txAdmin logging Callback
     local src = source
     if (args[1] == src) then
         TriggerClientEvent("Client:Notify", src, 'You cannot /ban yourself.')
@@ -52,6 +54,7 @@ end, true)
 -- ====================================================================================--
 
 RegisterCommand('kick', function(source, args, rawCommand)
+    TriggerEvent('txaLogger:CommandExecuted', rawCommand) -- txAdmin logging Callback
     local src = source
     if (args[1] == src) then
         TriggerClientEvent("Client:Notify", src, 'You cannot /kick yourself.')
@@ -65,6 +68,7 @@ end, true)
 -- ====================================================================================--
 
 RegisterCommand('setjob', function(source, args, rawCommand)
+    TriggerEvent('txaLogger:CommandExecuted', rawCommand) -- txAdmin logging Callback
     local src = source
     if c.job.Exist(args[2], args[3]) then
         local xPlayer = c.data.GetPlayer(args[1])
@@ -80,6 +84,7 @@ end, true)
 -- ====================================================================================--
 
 RegisterCommand('car', function(source, args, rawCommand)
+    TriggerEvent('txaLogger:CommandExecuted', rawCommand) -- txAdmin logging Callback
     local src = source
     local pos = GetEntityCoords(GetPlayerPed(src))
     local heading = GetEntityHeading(GetPlayerPed(src))
