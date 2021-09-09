@@ -13,10 +13,9 @@ math.randomseed(c.Seed)
 -- ====================================================================================--
 
 function c.class.VehicleClass(entity, plate)
+    if not plate then plate = false end
     local self = {}
     self.Entity = entity
-    --
-    EnsureEntityStateBag(self.Entity)
     --
     self.SetState = function(k,v)
         if type(k) ~= 'string' then k = tostring(k) end
