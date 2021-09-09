@@ -102,10 +102,12 @@ RegisterCommand('cartest', function(source, args, rawCommand)
     TriggerEvent('txaLogger:CommandExecuted', rawCommand) -- txAdmin logging Callback
     local src = source
     local vehicle = c.CreateVehicle("ADDER", 0,0,0,180)
-    while DoesEntityExist(vehicle) == false do
-        Wait(50)
-    end
     print(vehicle)
+    if DoesEntityExist(vehicle) == false then
+        print("false")
+    else
+        print("true")
+    end
     local xVehicle = c.class.VehicleClass(vehicle)
     table.insert(c.vehicles, xVehicle)
     print(c.table.Dump(c.vehicles))
