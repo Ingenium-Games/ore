@@ -29,8 +29,10 @@ function c.class.UnOwnedVehicle(entity)
         end
         return Entity(self.Entity).state[k]
     end
-
+    --
     local fuel = math.random(45, 100)
+    self.Fuel = fuel
+    --
     self.SetState('Plate', GetVehicleNumberPlateText(self.Entity))
     self.SetState('Coords', GetEntityCoords(self.Entity))
     self.SetState('Keys', {})
