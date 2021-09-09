@@ -12,9 +12,9 @@ NOTES.
 math.randomseed(c.Seed)
 -- ====================================================================================--
 
-function c.class.VehicleClass(networkid, owned, plate)
+function c.class.VehicleClass(entity, plate)
     local self = {}
-    self.Entity = NetworkGetEntityFromNetworkId(networkid)
+    self.Entity = entity
     --
     EnsureEntityStateBag(self.Entity)
     --
@@ -33,7 +33,7 @@ function c.class.VehicleClass(networkid, owned, plate)
 ----------------------------------------------------------------------
 
     -- If is not owned by a player on creation, do...
-    if not owned then
+    if not plate then
         -- Declare
         local fuel = math.random(45,100)
         self.SetState('Plate', GetVehicleNumberPlateText(self.Entity))
@@ -134,6 +134,17 @@ function c.class.VehicleClass(networkid, owned, plate)
         end
         -- Reminder, clients to set need to use Entity(ent).state:Set('Condition', {TABLE OF ALL STUFFS}, TRUE) << to replicate to the server
         self.GetCondition = function()
+            local ConDirt = GetVehicleDirtLevel(self.Entity)
+            local ConEng = GetVehicleEngineHealth(self.Entity)
+            local ConBod = GetVehicleBodyHealth(self.Entity)
+            local ConFuel = GetVehiclePetrolTankHealth(self.Entity)
+            local Con = {
+                ['ConDirt'] = ConDirt,
+                ['ConEng'] = ConEng,
+                ['ConBod'] = ConBod,
+                ['ConFuel'] = ConFuel,
+            }
+            self.SetCondition('Condition', Con)
             return self.GetState('Condition')
         end
         --
@@ -149,7 +160,7 @@ function c.class.VehicleClass(networkid, owned, plate)
 -------------------------------------------------------------------------        
 
     -- If it IS owned by a player, DO...
-    elseif owned then
+    elseif type(plate) == "string" then
         local data = c.sql.GetVehicleByPlate(plate)
         -- Declare
         self.Model = data.Model
@@ -305,7 +316,12 @@ function c.class.VehicleClass(networkid, owned, plate)
         end
         --
         
+    else
+        c.debug("Unable to create vehicle class, ")
     end
+
+
+
 
     return self
 end

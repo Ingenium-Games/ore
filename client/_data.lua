@@ -64,6 +64,7 @@ function c.data.GetPlayer()
     return c.Character
 end
 
+--- SHOULD REALLY CHANGE THIS TO A SERVER REQUEST/CALLBACK
 --- Shows a Spinny in the bottom left while sending data to the server.
 function c.data.ClientSync()
     Citizen.CreateThread(function()
@@ -99,6 +100,13 @@ function c.data.SendPacket()
         y = c.math.Decimals(loc.y, 2),
         z = c.math.Decimals(loc.z, 2)
     }
+    -- Too Remove.
     TriggerServerEvent('Server:Packet:Update', data)
+    -- return data
 end
+
 ------------------------------------------------------------------------------
+
+c.RegisterClientCallback("Client:Request:Packet", function(...)
+    return c.data.SendPacket()
+end)

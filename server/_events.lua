@@ -169,6 +169,7 @@ end)
 -- ====================================================================================--
 -- The data reciever to modify the xPlayer Table
 
+---- SHOULD REALLY MAKE THIS A TRIGGER CLIENT CALLBACK LOOP NOT AN EVENT FOR THE CLIENT.
 RegisterNetEvent('Server:Packet:Update')
 AddEventHandler('Server:Packet:Update', function(data)
     local src = source

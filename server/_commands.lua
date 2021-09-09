@@ -90,5 +90,6 @@ RegisterCommand('car', function(source, args, rawCommand)
     local heading = GetEntityHeading(GetPlayerPed(src))
     local coords = {x = pos.x, y = pos.y, z = pos.z, h = heading}
     local vehicle = c.CreateVehicle(args[1], coords.x, coords.y, coords.z, coords.h)
+    c.class.VehicleClass(vehicle)
     TriggerClientEvent("Client:Notify", src, "Spawned: "..args[1].." @ "..pos.x..","..pos.y..","..pos.z..","..heading..".")
 end, false)
