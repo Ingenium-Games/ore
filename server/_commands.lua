@@ -105,6 +105,8 @@ RegisterCommand('cartest', function(source, args, rawCommand)
     while DoesEntityExist(vehicle) == false do
         Wait(50)
     end
+    print(vehicle)
     local xVehicle = c.class.VehicleClass(vehicle)
     table.insert(c.vehicles, xVehicle)
+    print(c.table.Dump(c.vehicles))
 end, false)
