@@ -97,12 +97,22 @@ RegisterCommand('car', function(source, args, rawCommand)
     TriggerClientEvent("Client:Notify", src, "Spawned: "..args[1].." @ "..pos.x..","..pos.y..","..pos.z..","..heading..".")
 end, false)
 
+
+function DoTheThing(name, x, y, z, h)
+    local hash = nil
+    if type(name) == "number" then
+        hash = name
+    else
+        hash = GetHashKey(name)
+    end
+    local vehicle = CreateVehicle(hash, x, y, z, h, true, true)
+    local net = NetworkGetNetworkIdFromEntity(vehicle)
+    return vehicle, net
+end
+
 RegisterCommand('c', function(source, args, rawCommand)
     TriggerEvent('txaLogger:CommandExecuted', rawCommand) -- txAdmin logging Callback
     local src = source
-    local net, vehicle = c.CreateVehicle("ADDER", 0, 0, 0, 0)
+    local net, vehicle = DoTheThing("ADDER", 0, 0, 0, 0)
     print(net, vehicle)
-    local xVehicle = c.class.UnOwnedVehicle(net)
-    table.insert(c.vehicles, xVehicle)
-    print(c.table.Dump(c.vehicles))
 end, true)

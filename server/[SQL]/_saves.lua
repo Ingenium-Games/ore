@@ -119,7 +119,7 @@ end)
 ---@param data table "xCar table"
 ---@param cb function "To be called on SQL 'UPDATE' statement completion."
 function c.sql.save.Vehicle(data, cb)
-    if data then
+    if data.GetOwner() then
         -- Other Variables.
         local Garage = data.GetGarage()
         -- Booleans
@@ -163,7 +163,7 @@ function c.sql.save.Vehicles(cb)
     local xVehicles = c.data.GetVehicles()
     for i = 1, #xVehicles, 1 do
         local data = c.data.GetVehicle(i)
-        if data then
+        if data.GetOwner() then
         -- Other Variables.
         local Garage = data.GetGarage()
         -- Booleans

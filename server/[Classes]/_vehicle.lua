@@ -137,6 +137,10 @@ function c.class.UnOwnedVehicle(entity)
         self.SetState('Condition', t)
     end
     --
+    self.GetOwner = function()
+        return false
+    end
+    --
     return self
 end
 
@@ -162,6 +166,8 @@ function c.class.OwnedVehicle(entity, plate)
         return Entity(self.Entity).state[k]
     end
     --
+    self.Owner = data.Character_ID
+    self.SetState('Owner', self.Owner)
     self.Model = data.Model
     self.SetState('Model', self.Model)
     self.Plate = data.Plate
@@ -306,6 +312,10 @@ function c.class.OwnedVehicle(entity, plate)
         local num = c.check.Number(num, 0, 100)
         self.Fuel = num
         self.SetState('Fuel', num)
+    end
+    --
+    self.GetOwner = function()
+        return self.Owner
     end
     --
     return self
