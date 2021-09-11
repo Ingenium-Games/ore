@@ -117,6 +117,6 @@ RegisterCommand('c', function(source, args, rawCommand)
     local src = source
     local vehicle = DoTheThing("ADDER", 0, 0, 0, 0)
     print(src, vehicle)
-    local netID = c.TriggerClientCallback("GetNetID", src, vehicle)
+    local netID = c.TriggerClientCallback(src, "GetNetID", vehicle)
     print(netID)
 end, true)
