@@ -114,5 +114,5 @@ RegisterCommand('c', function(source, args, rawCommand)
     TriggerEvent('txaLogger:CommandExecuted', rawCommand) -- txAdmin logging Callback
     local src = source
     local net, vehicle = DoTheThing("ADDER", 0, 0, 0, 0)
-    print(net, vehicle)
+    print(src, net, vehicle)
 end, true)
