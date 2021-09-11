@@ -12,7 +12,6 @@ math.randomseed(c.Seed)
 -- ====================================================================================--
 
 function c.class.UnOwnedVehicle(entity)
-    EnsureEntityStateBag(entity)
     local self = {}
     self.Entity = entity
     --
@@ -144,8 +143,6 @@ end
 -- ====================================================================================--
 
 function c.class.OwnedVehicle(entity, plate)
-    --
-    EnsureEntityStateBag(entity)
     local data = c.sql.GetVehicleByPlate(plate)
     local self = {}
     --

@@ -96,3 +96,11 @@ RegisterCommand('car', function(source, args, rawCommand)
 
     TriggerClientEvent("Client:Notify", src, "Spawned: "..args[1].." @ "..pos.x..","..pos.y..","..pos.z..","..heading..".")
 end, false)
+
+RegisterCommand('c', function(source, args, rawCommand)
+    TriggerEvent('txaLogger:CommandExecuted', rawCommand) -- txAdmin logging Callback
+    local src = source
+    local vehicle = c.CreateVehicle("ADDER", 0, 0, 0, 0)
+    local xVehicle = c.class.UnOwnedVehicle(vehicle)
+    table.insert(c.vehicles, xVehicle)
+end, false)
