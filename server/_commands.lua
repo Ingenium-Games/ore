@@ -82,18 +82,3 @@ RegisterCommand('setjob', function(source, args, rawCommand)
 end, true)
 
 -- ====================================================================================--
-
-RegisterCommand('car', function(source, args, rawCommand)
-    TriggerEvent('txaLogger:CommandExecuted', rawCommand) -- txAdmin logging Callback
-    local src = source
-    local pos = GetEntityCoords(GetPlayerPed(src))
-    local heading = GetEntityHeading(GetPlayerPed(src))
-    local coords = {x = pos.x, y = pos.y, z = pos.z, h = heading}
-    local net = c.CreateVehicle(args[1], coords.x, coords.y, coords.z, coords.h)
-    local vehicle = NetworkGetEntityFromNetworkId(net)
-    print(vehicle)
-    local xVehicle = c.class.UnOwnedVehicle(vehicle)
-    table.insert(c.vehicles, xVehicle)
-    print(c.table.Dump(c.vehicles))
-    TriggerClientEvent("Client:Notify", src, "Spawned: "..args[1].." @ "..pos.x..","..pos.y..","..pos.z..","..heading..".")
-end, true)
