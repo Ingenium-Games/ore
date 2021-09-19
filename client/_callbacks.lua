@@ -75,8 +75,3 @@ function c.RegisterClientCallback(eventName, fn)
 end
 
 -- ====================================================================================--
-
-c.RegisterClientCallback("GetNetID",function(vehicle) 
-    local net = NetworkGetNetworkIdFromEntity(vehicle)
-    return net
-end)
