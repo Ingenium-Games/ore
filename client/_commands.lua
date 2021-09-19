@@ -16,7 +16,7 @@ math.randomseed(c.Seed)
 ----
 ---@param group any "Check permissions and import the chat suggestions."
 function c.command.AddSuggestions()
-    for _,v in pairs(c.aces) do
+    for _,v in pairs(c.ace) do
         if IsAceAllowed('group.'..v) then
             c.aces[v]()
             c.debug("Added chat suggestions for group: "..v)
