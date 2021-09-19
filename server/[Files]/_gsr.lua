@@ -64,7 +64,7 @@ function c.gsr.Exist(id)
 end
 
 function c.gsr.Clean()
-    if type(c.gsr) == "table" then
+    if type(c.gsrs) == "table" then
         for k,v in pairs(c.gsrs) do
             if v then
                 if (v.Time - os.time()) <= conf.file.clean then
