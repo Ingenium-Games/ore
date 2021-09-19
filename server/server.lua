@@ -21,6 +21,9 @@ AddEventHandler('onResourceStart', function(resourceName)
 end)
 -- ====================================================================================--
 function OnStart(resourceName)
+    --
+    c.version.Check(conf.url.version, resourceName)
+    --
     c.data.Initilize()
     --
     while c.Loading do
@@ -36,8 +39,7 @@ function OnStart(resourceName)
     c.job.PayCycle()  
     --
 
-    -- AT THE END
-    c.version.Check(conf.url.version, resourceName)
+
 end
 -- ====================================================================================--
 RegisterNetEvent('Server:PlayerConnecting')
