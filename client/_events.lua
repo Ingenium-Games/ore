@@ -30,7 +30,7 @@ AddEventHandler('Client:Character:Loaded', function(data)
     c.modifier.SetModifiers(data)
     --
     Wait(250) -- Give yourself a moment prior to Syncing from loaded.
-    c.command.AddSuggestions()
+    c.chat.AddSuggestions(data)
     --
     c.data.ClientSync()
     -- Trigger any events after the Ready State.

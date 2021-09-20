@@ -1,31 +1,6 @@
 -- ====================================================================================--
 --  MIT License 2020 : Twiitchter
 -- ====================================================================================--
-c.command = {}
-c.commands = {}
---[[
-NOTES
-    I a trying to figure outt he best way of dynamically looping over parent and children aces
-    without the need for a manually typed table referncing what else to loop into, in terms
-    of parent and child relations on ACL permissions.
-    Preffer to do client sided.
-]]--
-math.randomseed(c.Seed)
--- ====================================================================================--
-
-----
----@param group any "Check permissions and import the chat suggestions."
-function c.command.AddSuggestions()
-    for _,v in pairs(c.ace) do
-        if IsAceAllowed('group.'..v) then
-            c.aces[v]()
-            c.debug("Added chat suggestions for group: "..v)
-        else
-            c.debug("Not permited to use "..v.." group commands.")
-        end
-        Citizen.Wait(250)
-    end
-end
 
 --[[
     Animations with Keybinding
@@ -35,7 +10,6 @@ end
     RegisterCommand('-cross', function() TriggerEvent("Client:Animation.CrossedArms", false, GetPlayerPed(-1)) end, false)
     RegisterKeyMapping('+cross', 'Cross arms', 'keyboard', 'z')
 ]]--
-
 
 RegisterCommand('cross', function(source, args, rawCommand)
     TriggerEvent("Client:Animation.CrossedArms", true, GetPlayerPed(-1))
@@ -61,20 +35,12 @@ RegisterKeyMapping('armhold', 'Arm Hold', 'keyboard', 'NumPad3')
 
 -- ====================================================================================--
 
--- Server Commmands and useage
-
---[[
-if IsPlayerFreeAiming(PlayerId()) then
-    local bool, target = GetEntityPlayerIsFreeAimingAt(PlayerId())
-
-end
-]]--
-
 RegisterCommand('car', function(source, args, rawCommand)
     local car = args[1]
     local pos = GetEntityCoords(PlayerPedId())
     local head = GetEntityHeading(PlayerPedId())
-    local entity, net, state = c.CreateVehicle(car, pos.x, pos.y, pos.z, head)
+    local entity, net = c.CreateVehicle(car, pos.x, pos.y, pos.z, head)
     print(entity, net)
-    c.debug(c.table.Dump(state))
+    c.SetVehicleCondition(entity, Entity(entity).state.Condition)
+    c.SetVehicleModifications(entity, Entity(entity).state.Modifications)
 end, false)

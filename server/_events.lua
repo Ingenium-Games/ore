@@ -275,3 +275,13 @@ AddEventHandler("Server:EnteringVehicle:Aborted", function()
     --
     CancelEvent()
 end)
+
+RegisterNetEvent("AssignVehicleData")
+AddEventHandler("AssignVehicleData", function(net, plate)
+    local src = source
+    if plate then
+        c.class.OwnedVehicle(net, plate)
+    else
+        c.class.UnownedVehicle(net)
+    end
+end)

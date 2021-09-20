@@ -390,6 +390,7 @@ function c.CreateObject(name, x, y, z, isdoor)
 end
 
 function c.CreateVehicle(name, x, y, z, h, plate)
+    if not plate then plate = false end
     local hash = nil
     if type(name) == "number" then
         hash = name
@@ -402,6 +403,7 @@ function c.CreateVehicle(name, x, y, z, h, plate)
     end
     local entity = CreateVehicle(hash, x, y, z, h, true, false)
     SetVehicleOnGroundProperly(entity)
+    local othernet = VehToNet(entity)
     local net = NetworkGetNetworkIdFromEntity(entity)
     SetVehicleHasBeenOwnedByPlayer(entity, true)
     SetNetworkIdCanMigrate(net, true)
@@ -409,20 +411,18 @@ function c.CreateVehicle(name, x, y, z, h, plate)
 
     -- here is where it will get confusing...
     local state = nil
-    if NetworkDoesEntityExistWithNetworkId(net) then            
+    if NetworkDoesEntityExistWithNetworkId(net) then
+        c.debug("Entity exists on network, id: "..net)            
         if plate then
-            state = c.TriggerServerCallback("CreateOwnedVehicle", entity, net, plate)
-            c.SetVehicleCondition(entity, state.Condition)
-            c.SetVehicleModifications(entity, state.Modifications)
+            TriggerServerEvent("AssignVehicleData", net, plate)
         else
-            state = c.TriggerServerCallback("CreateUnownedVehicle", entity, net)
-            Entity(entity).state.Condition = c.GetVehicleCondition(entity)
-            Entity(entity).state.Modifications = c.GetVehicleModifications(entity)
+            TriggerServerEvent("AssignVehicleData", net, false)
         end
     else
         net = false
-    end  
-    return entity, net, state
+        c.debug("Entity DOES NOT exist on network.")
+    end
+    return entity, net
 end
 
 function c.SetVehicleModifications(vehicle, mods)
