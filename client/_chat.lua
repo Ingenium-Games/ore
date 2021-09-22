@@ -17,12 +17,6 @@ math.randomseed(c.Seed)
 ---@param group any "Check permissions and import the chat suggestions."
 function c.chat.AddSuggestions(xPlayer)
     local ace = xPlayer.Ace
-    for _,v in pairs(c.ace) do
-        c.aces[v]()
-        c.debug("Added chat suggestions for group: "..v)
-        if c.ace[ace] then
-            break
-        end
-        Citizen.Wait(250)
-    end
+    c.aces[ace]()
+    c.debug("Added chat suggestions for group: "..ace)
 end
