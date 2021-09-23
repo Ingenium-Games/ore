@@ -412,7 +412,8 @@ function c.CreateVehicle(name, x, y, z, h, plate)
     -- here is where it will get confusing...
     local state = nil
     if NetworkDoesEntityExistWithNetworkId(net) then
-        c.debug("Entity exists on network, id: "..net)            
+        c.debug("Entity exists on network, id: "..net)        
+        c.debug("Entity exists on network, id: "..othernet)       
         if plate then
             TriggerServerEvent("AssignVehicleData", net, plate)
         else
