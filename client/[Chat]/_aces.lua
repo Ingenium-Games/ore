@@ -24,9 +24,10 @@ end
 
 c.aces.mod = function()
     -- public
-    TriggerEvent("chat:addSuggestion", "/switch", "Use to change your character(s).")
-    
+    c.aces.public()
+
     -- mod
+
     TriggerEvent("chat:addSuggestion", "/setjob", "Admin Permission(s) Required.", {{
         name = "1",
         help = "Server ID"
@@ -37,112 +38,41 @@ c.aces.mod = function()
         name = "3",
         help = "Job Grade"
     }})
+    
 end
 
 c.aces.admin = function()
-    -- public
-    TriggerEvent("chat:addSuggestion", "/switch", "Use to change your character(s).")
-    
     -- mod
-    TriggerEvent("chat:addSuggestion", "/setjob", "Admin Permission(s) Required.", {{
-        name = "1",
-        help = "Server ID"
-    }, {
-        name = "2",
-        help = "Job Name"
-    }, {
-        name = "3",
-        help = "Job Grade"
-    }})
-    
+    c.aces.mod()
+
     -- admin
+
     TriggerEvent("chat:addSuggestion", "/ban", "Admin Permission(s) Required.", {{
         name = "1",
         help = "Server ID"
     }})
+
     TriggerEvent("chat:addSuggestion", "/kick", "Admin Permission(s) Required.", {{
         name = "1",
         help = "Server ID"
     }})
 end
 
-c.aces.superadmin = function()
-    -- public
-    TriggerEvent("chat:addSuggestion", "/switch", "Use to change your character(s).")
-    
-    -- mod
-    TriggerEvent("chat:addSuggestion", "/setjob", "Admin Permission(s) Required.", {{
-        name = "1",
-        help = "Server ID"
-    }, {
-        name = "2",
-        help = "Job Name"
-    }, {
-        name = "3",
-        help = "Job Grade"
-    }})
-    
+c.aces.superadmin = function()   
     -- admin
-    TriggerEvent("chat:addSuggestion", "/ban", "Admin Permission(s) Required.", {{
-        name = "1",
-        help = "Server ID"
-    }})
-    TriggerEvent("chat:addSuggestion", "/kick", "Admin Permission(s) Required.", {{
-        name = "1",
-        help = "Server ID"
-    }})
+    c.aces.admin()
+
 end
 
 c.aces.developer = function()     
-    -- public
-    TriggerEvent("chat:addSuggestion", "/switch", "Use to change your character(s).")
-    
-    -- mod
-    TriggerEvent("chat:addSuggestion", "/setjob", "Admin Permission(s) Required.", {{
-        name = "1",
-        help = "Server ID"
-    }, {
-        name = "2",
-        help = "Job Name"
-    }, {
-        name = "3",
-        help = "Job Grade"
-    }})
-    
     -- admin
-    TriggerEvent("chat:addSuggestion", "/ban", "Admin Permission(s) Required.", {{
-        name = "1",
-        help = "Server ID"
-    }})
-    TriggerEvent("chat:addSuggestion", "/kick", "Admin Permission(s) Required.", {{
-        name = "1",
-        help = "Server ID"
-    }})
+    c.aces.superadmin()
+    
 end
 
 c.aces.owner = function()     
-    -- public
-    TriggerEvent("chat:addSuggestion", "/switch", "Use to change your character(s).")
-    
-    -- mod
-    TriggerEvent("chat:addSuggestion", "/setjob", "Admin Permission(s) Required.", {{
-        name = "1",
-        help = "Server ID"
-    }, {
-        name = "2",
-        help = "Job Name"
-    }, {
-        name = "3",
-        help = "Job Grade"
-    }})
-    
     -- admin
-    TriggerEvent("chat:addSuggestion", "/ban", "Admin Permission(s) Required.", {{
-        name = "1",
-        help = "Server ID"
-    }})
-    TriggerEvent("chat:addSuggestion", "/kick", "Admin Permission(s) Required.", {{
-        name = "1",
-        help = "Server ID"
-    }})
+    c.aces.owner()
+    
+
 end
