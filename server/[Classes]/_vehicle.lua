@@ -14,6 +14,10 @@ every get will return the full serialized state from the game,
 and only a direct set operation will serialize the entire state back into the game.
 
 fuck my life, seeya later self code.
+    local entState = Entity(veh).state
+    entState:set('owner', GetPlayerName(source), false)
+    entState:set('fishedSpawning', false, true)
+    
 ]] --
 math.randomseed(c.Seed)
 -- ====================================================================================--
