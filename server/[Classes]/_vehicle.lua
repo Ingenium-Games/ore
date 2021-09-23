@@ -11,9 +11,9 @@ NOTES.
 math.randomseed(c.Seed)
 -- ====================================================================================--
 
-function c.class.UnownedVehicle(entity)
+function c.class.UnownedVehicle(net)
     local self = {}
-    self.Entity = entity
+    self.Entity = tostring(net)
     --
     self.SetState = function(k, v)
         if type(k) ~= 'string' then
@@ -147,11 +147,11 @@ end
 
 -- ====================================================================================--
 
-function c.class.OwnedVehicle(entity, plate)
+function c.class.OwnedVehicle(net, plate)
     local data = c.sql.GetVehicleByPlate(plate)
     local self = {}
     --
-    self.Entity = entity
+    self.Entity = tostring(net)
     --
     self.SetState = function(k, v)
         if type(k) ~= 'string' then
