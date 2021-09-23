@@ -280,8 +280,8 @@ RegisterNetEvent("AssignVehicleData")
 AddEventHandler("AssignVehicleData", function(net, plate)
     local src = source
     if plate then
-        c.class.OwnedVehicle(net, plate)
+        c.vehicle.Add(net, c.class.OwnedVehicle(net, plate))
     else
-        c.class.UnownedVehicle(net)
+        c.vehicle.Add(net, c.class.UnownedVehicle(net))
     end
 end)

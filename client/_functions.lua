@@ -403,8 +403,7 @@ function c.CreateVehicle(name, x, y, z, h, plate)
     end
     local entity = CreateVehicle(hash, x, y, z, h, true, false)
     SetVehicleOnGroundProperly(entity)
-    local othernet = VehToNet(entity)
-    local net = NetworkGetNetworkIdFromEntity(entity)
+    local net = VehToNet(entity)
     SetVehicleHasBeenOwnedByPlayer(entity, true)
     SetNetworkIdCanMigrate(net, true)
     SetModelAsNoLongerNeeded(hash)
@@ -412,8 +411,7 @@ function c.CreateVehicle(name, x, y, z, h, plate)
     -- here is where it will get confusing...
     local state = nil
     if NetworkDoesEntityExistWithNetworkId(net) then
-        c.debug("Entity exists on network, id: "..net)        
-        c.debug("Entity exists on network, id: "..othernet)       
+        c.debug("Entity exists on network, id: "..net)              
         if plate then
             TriggerServerEvent("AssignVehicleData", net, plate)
         else
