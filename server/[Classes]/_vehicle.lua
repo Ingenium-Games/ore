@@ -13,7 +13,7 @@ math.randomseed(c.Seed)
 
 function c.class.UnownedVehicle(net)
     local self = {}
-    self.Entity = tostring(net)
+    self.Entity = tonumber(net)
     --
     self.SetState = function(k, v)
         if type(k) ~= 'string' then
@@ -151,7 +151,7 @@ function c.class.OwnedVehicle(net, plate)
     local data = c.sql.GetVehicleByPlate(plate)
     local self = {}
     --
-    self.Entity = tostring(net)
+    self.Entity = tonumber(net)
     --
     self.SetState = function(k, v)
         if type(k) ~= 'string' then
