@@ -7,42 +7,26 @@ NOTES.
     - Just incase it goes arse up and state bags become fucked.
     - Preemuch the reason. So, Why rely on one, when you can have two?
     - FUka you.
+
+    Shallow limitations
+State getters and setters are naive: 
+every get will return the full serialized state from the game, 
+and only a direct set operation will serialize the entire state back into the game.
+
+fuck my life, seeya later self code.
 ]] --
 math.randomseed(c.Seed)
 -- ====================================================================================--
 
 function c.class.UnownedVehicle(net)
     local self = {}
-    self.Entity = tonumber(net)
-    --
-    self.SetState = function(k, v)
-        if type(k) ~= 'string' then
-            k = tostring(k)
-        end
-        Entity(self.Entity).state[k] = v
-    end
-    --
-    self.GetState = function(k)
-        if type(k) ~= 'string' then
-            k = tostring(k)
-        end
-        return Entity(self.Entity).state[k]
-    end
+    self.Entity = net
     --
     local fuel = math.random(45, 100)
     self.Fuel = fuel
     --
     self.Plate = GetVehicleNumberPlateText(self.Entity)
-    self.SetState('Plate', self.Plate)
-    self.SetState('Coords', GetEntityCoords(self.Entity))
-    self.SetState('Keys', {})
-    self.SetState('Fuel', fuel)
-    self.SetState('Model', GetEntityModel(self.Entity))
-    self.SetState('Modifications', {})
-    self.SetState('Condition', {})
-    self.SetState('Inventory', {})
-    self.SetState('Wanted', true)
-    self.SetState('Instance', 0)
+
     -- Functions
     self.GetFuel = function()
         return self.GetState('Fuel')
@@ -143,6 +127,16 @@ function c.class.UnownedVehicle(net)
     end
     --
     return self
+    self.SetState('Plate', self.Plate)
+    self.SetState('Coords', GetEntityCoords(self.Entity))
+    self.SetState('Keys', {})
+    self.SetState('Fuel', fuel)
+    self.SetState('Model', GetEntityModel(self.Entity))
+    self.SetState('Modifications', {})
+    self.SetState('Condition', {})
+    self.SetState('Inventory', {})
+    self.SetState('Wanted', true)
+    self.SetState('Instance', 0)
 end
 
 -- ====================================================================================--
