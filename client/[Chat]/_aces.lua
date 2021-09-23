@@ -72,7 +72,7 @@ end
 
 c.aces.owner = function()     
     -- admin
-    c.aces.owner()
+    c.aces.developer()
     
 
 end
