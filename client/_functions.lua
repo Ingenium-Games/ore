@@ -389,8 +389,9 @@ function c.CreateObject(name, x, y, z, isdoor)
     return net
 end
 
-function c.CreateVehicle(name, x, y, z, h, plate)
-    if not plate then plate = false end
+function c.CreateVehicle(name, x, y, z, h, plate, stolen)
+    if plate == nil then plate = false end
+    if stolen == nil then stolen = false end
     local hash = nil
     if type(name) == "number" then
         hash = name
@@ -415,7 +416,7 @@ function c.CreateVehicle(name, x, y, z, h, plate)
         if plate then
             TriggerServerEvent("AssignVehicleData", net, plate)
         else
-            TriggerServerEvent("AssignVehicleData", net, false)
+            TriggerServerEvent("AssignVehicleData", net, false, stolen)
         end
     else
         net = false

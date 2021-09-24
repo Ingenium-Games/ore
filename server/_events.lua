@@ -277,11 +277,11 @@ AddEventHandler("Server:EnteringVehicle:Aborted", function()
 end)
 
 RegisterNetEvent("AssignVehicleData")
-AddEventHandler("AssignVehicleData", function(net, plate)
+AddEventHandler("AssignVehicleData", function(net, plate, stolen)
     local src = source
     if plate then
         c.vehicle.Add(net, c.class.OwnedVehicle(net, plate))
     else
-        c.vehicle.Add(net, c.class.UnownedVehicle(net))
+        c.vehicle.Add(net, c.class.UnownedVehicle(net, stolen))
     end
 end)

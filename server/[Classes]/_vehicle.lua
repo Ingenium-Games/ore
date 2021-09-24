@@ -22,40 +22,61 @@ fuck my life, seeya later self code.
 math.randomseed(c.Seed)
 -- ====================================================================================--
 
-function c.class.UnownedVehicle(net)
+function c.class.UnownedVehicle(net, bool)
+    local stolen = c.check.Boolean(bool) 
+    local fuel = math.random(45, 100)
+    --
     local self = {}
     self.Entity = net
+    self.State = Entity(self.Entity).state
     --
-    local fuel = math.random(45, 100)
-    self.Fuel = fuel
-    --
-    self.Plate = GetVehicleNumberPlateText(self.Entity)
+    self.GetSource = function()
+        return NetworkGetEntityOwner(self.Entity)
+    end
 
-    -- Functions
+    -- Plate
+    self.Plate = GetVehicleNumberPlateText(self.Entity)
+    self.State:set('Plate', self.Plate)
+    --
+    self.GetPlate = function()
+        return self.State.Plate or self.Plate
+    end
+
+    -- Fuel
+    self.Fuel = fuel
+    self.State:set('Fuel', self.Fuel)
+    --
     self.GetFuel = function()
-        return self.GetState('Fuel')
+        return self.State.Fuel or self.Fuel
     end
     --
     self.SetFuel = function(v)
-        self.SetState('Fuel', v)
+        local num = c.check.Number(v, 0, 100)
+        self.State:set('Fuel', num)
+        self.Fuel = num
     end
     --
-    self.AddFuel = function(num)
-        local num = c.check.Number(num, 0, 100)
+    self.AddFuel = function(v)
+        local num = c.check.Number(v, 0, 100)
         self.SetFuel((self.GetFuel() + num))
+        self.Fuel = self.GetFuel()
         if self.GetFuel() >= 100 then
             self.SetFuel(100)
+            self.Fuel = 100
         end
     end
     --
-    self.RemoveFuel = function(num)
-        local num = c.check.Number(num, 0, 100)
+    self.RemoveFuel = function(v)
+        local num = c.check.Number(v, 0, 100)
         self.SetFuel((self.GetFuel() - num))
+        self.Fuel = self.GetFuel()
         if self.GetFuel() <= 0 then
             self.SetFuel(0)
+            self.Fuel = 0
         end
     end
-    --
+
+    -- Coords
     self.GetCoords = function()
         local x, y, z = GetEntityCoords(self.Entity)
         local h = GetEntityHeading(self.Entity)
@@ -68,79 +89,148 @@ function c.class.UnownedVehicle(net)
         return Coords
     end
     --
-    self.SetCoords = function()
-        local Coords = self.GetCoords()
-        self.SetState('Coords', Coords)
+    self.SetCoords = function(coords)
+        SetEntityHeading(self.Entity, coords.h)
+        SetEntityCoords(self.Entity, coords.x, coords.y, coords.z, false)
     end
+
+
+    -- Inventory
+    self.Inventory = {}
+    self.State:set('Inventory', self.Inventory)
     --
     self.GetInventory = function()
-        return self.GetState('Inventory')
-    end
-    -- Rather than do individual transactions, better to let the inventory functions (soontm) deal with all that.
-    self.SetInventory = function(t)
-        self.SetState('Inventory', t)
+        return self.State.Inventory or self.Inventory
     end
     --
+    self.SetInventory = function(t)
+        self.Inventory = t
+        self.State:set('Inventory', self.Inventory)
+    end
+
+    -- Keys
+    self.Keys = {}
+    self.State:set('Keys', self.Keys)
+    --
     self.GetKeys = function()
-        return self.GetState('Keys')
+        return self.State.Keys or self.Keys
     end
     --
     self.SetKeys = function(t)
-        self.SetState('Keys', t)
+        self.Keys = t
+        self.State:set('Keys', self.Keys)
     end
     --
     self.AddKey = function(id)
-        local t = self.GetState('Keys')
-        if not t[id] then
-            table.insert(t, id)
-            self.SetState('Keys', t)
+        local t = self.GetKeys()
+        if not self.CheckKey(id) then
+            table.insert(self.Keys, id)
+            self.State:set('Keys', self.Keys)
         else
             c.debug('User: ' .. id .. ' Already has key to this vehicle.')
         end
     end
     --
     self.RemoveKey = function(id)
-        local t = self.GetState('Keys')
-        if t[id] then
-            table.remove(t, id)
-            self.SetState('Keys', t)
+        local t = self.GetKeys()
+        if self.CheckKey(id) then
+            table.remove(self.Keys, id)
+            self.State:set('Keys', self.Keys)
         else
             c.debug('User: ' .. id .. ' Never had a key to this vehicle.')
         end
     end
     --
     self.CheckKey = function(id)
-        local t = self.GetState('Keys')
+        local t = self.GetKeys()
         if t[id] then
             return true
         else
             return false
         end
     end
-    -- Reminder, clients to set need to use Entity(ent).state:Set('Condition', {TABLE OF ALL STUFFS}, TRUE) << to replicate to the server
-    self.GetCondition = function()
-        return self.GetState('Condition')
+
+    -- Condition
+    self.Conditions = c.TriggerClientCallback("GetVehicleConditions", self.GetSource(), self.Entity)
+    self.State:set('Conditions', self.Conditions)
+    --
+    self.GetConditions = function()
+        return self.State.Conditions or self.Conditions
     end
     --
-    self.SetCondition = function(t)
-        self.SetState('Condition', t)
+    self.SetConditions = function(conditions)
+        self.Conditions = conditions
+        self.State:set('Conditions', self.Conditions)
+        c.TriggerClientCallback("SetVehicleConditions", self.GetSource(), self.Entity)
     end
+    --
+    self.AlterCondition = function(id, v)
+        if self.CheckConds(id) then
+            self.Conditions[id] = v
+            self.State:set('Conditions', self.Conditions)
+        end
+    end
+    --
+    self.CheckConds = function(id)
+        local t = self.GetConditions()
+        if t[id] then
+            return true
+        else
+            return false
+        end
+    end
+
+
+    -- Modifications
+    self.Modifications = c.TriggerClientCallback("GetVehicleModifications", self.GetSource(), self.Entity)
+    self.State:set('Modifications', self.Conditions)
+    --
+    self.GetModifications = function()
+        return self.State.Modifications or self.Modifications
+    end
+    --
+    self.SetModifications = function(modifications)
+        self.Modifications = modifications
+        self.State:set('Modifications', self.Modifications)
+        c.TriggerClientCallback("SetVehicleModifications", self.GetSource(), self.Entity)
+    end
+    --
+    self.AlterModification = function(id, v)
+        if self.CheckMods(id) then
+            self.Modifications[id] = v
+            self.State:set('Modifications', self.Modifications)
+        end
+    end
+    --
+    self.CheckMods = function(id)
+        local t = self.GetModifications()
+        if t[id] then
+            return true
+        else
+            return false
+        end
+    end
+    --
+
+    -- Owner
+    self.Owner = false
+    self.State:set('Owner', false)
     --
     self.GetOwner = function()
-        return false
+        return self.State.Owner or self.Owner
     end
     --
+
+    -- Wanted
+    self.Wanted = stolen
+    self.State:set('Wanted',  stolen)
+    --
+    self.GetWanted = function()
+        return self.State.Wanted or self.Wanted
+    end
+    --
+
     return self
-    self.SetState('Plate', self.Plate)
-    self.SetState('Coords', GetEntityCoords(self.Entity))
-    self.SetState('Keys', {})
-    self.SetState('Fuel', fuel)
-    self.SetState('Model', GetEntityModel(self.Entity))
-    self.SetState('Modifications', {})
-    self.SetState('Condition', {})
-    self.SetState('Inventory', {})
-    self.SetState('Wanted', true)
-    self.SetState('Instance', 0)
 end
 
 -- ====================================================================================--
